@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login API Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        input { padding: 8px; margin: 5px; width: 200px; }
+        .log { background: #f8f8f8; padding: 10px; margin: 10px 0; font-family: monospace; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>Login API Test</h1>
+
+    <div class="test-section">
+        <h3>Test Login</h3>
+        <input type="email" id="email" placeholder="Email" value="test@example.com"><br>
+        <input type="password" id="password" placeholder="Password" value="password123"><br>
+        <button onclick="testLogin()">Test Login</button>
+        <div id="loginStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Register Test User</h3>
+        <input type="text" id="regUser" placeholder="Username" value="testuser"><br>
+        <input type="email" id="regEmail" placeholder="Email" value="test@example.com"><br>
+        <input type="password" id="regPassword" placeholder="Password" value="password123"><br>
+        <button onclick="testRegister()">Register User</button>
+        <div id="registerStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Debug Log</h3>
+        <div id="debugLog" class="log"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000';
+
+        function log(message) {
+            const logDiv = document.getElementById('debugLog');
+            logDiv.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        async function testRegister() {
+            const user = document.getElementById('regUser').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            try {
+                log('Registering user: ' + email);
+                const response = await fetch(`${API_BASE}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user, email, password })
+                });
+
+                const result = await response.json();
+                log('Register response: ' + JSON.stringify(result, null, 2));
+
+                if (response.ok) {
+                    document.getElementById('registerStatus').innerHTML = '<span class="success">✅ User registered successfully</span>';
+                } else {
+                    document.getElementById('registerStatus').innerHTML = '<span class="error">❌ Register failed: ' + result.message + '</span>';
+                }
+            } catch (error) {
+                log('Register error: ' + error);
+                document.getElementById('registerStatus').innerHTML = '<span class="error">❌ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                log('Logging in user: ' + email);
+                const response = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const result = await response.json();
+                log('Login response: ' + JSON.stringify(result, null, 2));
+
+                if (response.ok) {
+                    document.getElementById('loginStatus').innerHTML = '<span class="success">✅ Login successful! Token: ' + result.token.substring(0, 50) + '...</span>';
+                } else {
+                    document.getElementById('loginStatus').innerHTML = '<span class="error">❌ Login failed: ' + result.message + '</span>';
+                }
+            } catch (error) {
+                log('Login error: ' + error);
+                document.getElementById('loginStatus').innerHTML = '<span class="error">❌ Error: ' + error.message + '</span>';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tentang Kami - PT Sun Menara Mandiri Group</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0c0c0c, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Liquid Background Animation */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .liquid-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(0, 123, 255, 0.1), rgba(138, 43, 226, 0.1));
+            animation: liquidFloat 20s ease-in-out infinite;
+        }
+
+        .liquid-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .liquid-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .liquid-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        .liquid-shape:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            right: 30%;
+            animation-delay: 15s;
+        }
+
+        @keyframes liquidFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                border-radius: 50%;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                border-radius: 30% 70% 70% 30%;
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+                border-radius: 70% 30% 30% 70%;
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+                border-radius: 30% 70% 30% 70%;
+            }
+        }
+
+        /* Glass Container */
+        .glass-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 0;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: glassMorph 8s ease-in-out infinite;
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 25px; }
+            25% { border-radius: 30px 20px 25px 30px; }
+            50% { border-radius: 20px 30px 30px 20px; }
+            75% { border-radius: 30px 25px 20px 30px; }
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: liquidShine 4s ease-in-out infinite;
+        }
+
+        @keyframes liquidShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Header Section */
+        .glass-header {
+            background: linear-gradient(135deg,
+                rgba(40, 167, 69, 0.3),
+                rgba(34, 197, 94, 0.3),
+                rgba(74, 222, 128, 0.3));
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('img/ptsun.png');
+            background-size: 80px;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.1;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        .logo-glass {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-glass img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: brightness(0) invert(1);
+        }
+
+        .glass-header h1 {
+            color: white;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .glass-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin: 8px 0 0;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Body Section */
+        .glass-body {
+            padding: 40px 30px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .content-section h3 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .content-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .facts-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .facts-list li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .facts-list i {
+            color: rgba(40, 167, 69, 0.8);
+            margin-right: 10px;
+            width: 16px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .value-item i {
+            font-size: 2.5rem;
+            color: rgba(40, 167, 69, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .value-item h4 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .value-item p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .org-structure {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .org-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .org-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .org-item h4 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .org-item p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .team-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .team-section h3 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background: rgba(40, 167, 69, 0.3);
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+
+        .table td {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: rgba(40, 167, 69, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .contact-item h4 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .contact-item p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-brand img {
+            height: 32px;
+            margin-right: 10px;
+            filter: brightness(0) invert(1);
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            text-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glass-container {
+                padding: 0 15px;
+            }
+
+            .glass-header,
+            .glass-body {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .glass-header h1 {
+                font-size: 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .values-grid,
+            .org-structure,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="liquid-bg">
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="glass-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a class="nav-brand" href="index.html">
+                    <img src="img/ptsun.png" alt="PT Sun Menara Mandiri Group">
+                    <span>PT Sun Menara Mandiri Group</span>
+                </a>
+                <div class="nav-links">
+                    <a class="nav-link" href="index.html">Beranda</a>
+                    <a class="nav-link active" href="about.html">Tentang Kami</a>
+                    <a class="nav-link" href="team.html">Tim Kami</a>
+                    <a class="nav-link" href="properties.html">Properti</a>
+                    <a class="nav-link" href="login.html?role=user">Login User</a>
+                    <a class="nav-link" href="login.html?role=admin">Login Admin</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="glass-container">
+        <div class="glass-card">
+            <div class="glass-header">
+                <div class="logo-container">
+                    <div class="logo-glass">
+                        <img src="img/ptsun.png" alt="PT Sun Menara Mandiri">
+                    </div>
+                </div>
+                <h1>Tentang PT Sun Menara Mandiri Group</h1>
+                <p>Holding company terkemuka dengan fokus pada solusi keuangan terintegrasi, pengembangan properti, dan investasi strategis</p>
+            </div>
+
+            <div class="glass-body">
+                <div class="content-section">
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <h3>Sejarah Kami</h3>
+                            <p>PT Sun Menara Mandiri didirikan pada tahun 1998 sebagai perusahaan yang fokus pada pengembangan solusi keuangan dan properti di Indonesia. Bermula dari sebuah bank kecil, perusahaan ini telah berkembang menjadi konglomerat terkemuka dengan berbagai lini bisnis yang saling terintegrasi.</p>
+                            <p>Dalam perjalanannya, perusahaan telah berhasil mengembangkan lebih dari 20 proyek properti besar dan melayani jutaan nasabah melalui jaringan perbankan digital yang canggih.</p>
+                        </div>
+                        <div class="content-card">
+                            <h3>Fakta Cepat</h3>
+                            <ul class="facts-list">
+                                <li><i class="bi bi-calendar"></i><strong>Tahun Berdiri:</strong> 1998</li>
+                                <li><i class="bi bi-building"></i><strong>Perusahaan Anak:</strong> 6 Perusahaan</li>
+                                <li><i class="bi bi-building"></i><strong>Total Proyek:</strong> 25+ Proyek Properti</li>
+                                <li><i class="bi bi-people"></i><strong>Nasabah:</strong> 2+ Juta Nasabah</li>
+                                <li><i class="bi bi-geo-alt"></i><strong>Kantor Cabang:</strong> 50+ Lokasi</li>
+                                <li><i class="bi bi-trophy"></i><strong>Penghargaan:</strong> 15+ Penghargaan Industri</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <h3>Visi & Misi</h3>
+                            <h4 style="color: rgba(40, 167, 69, 0.9); margin-top: 20px;">Visi</h4>
+                            <p>Menjadi pemimpin terdepan dalam solusi keuangan terintegrasi dan pengembangan properti berkelanjutan yang memberikan nilai maksimal bagi stakeholders dan masyarakat.</p>
+
+                            <h4 style="color: rgba(40, 167, 69, 0.9); margin-top: 20px;">Misi</h4>
+                            <ul style="color: rgba(255, 255, 255, 0.8);">
+                                <li>Menyediakan layanan perbankan digital yang inovatif dan aman</li>
+                                <li>Mengembangkan properti berkualitas dengan konsep sustainable development</li>
+                                <li>Mendorong pertumbuhan ekonomi melalui investasi strategis</li>
+                                <li>Membangun kemitraan yang saling menguntungkan dengan stakeholders</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h3>Nilai-Nilai Kami</h3>
+                            <div class="values-grid">
+                                <div class="value-item">
+                                    <i class="bi bi-shield-check"></i>
+                                    <h4>Integritas</h4>
+                                    <p>Kami menjunjung tinggi kejujuran dan transparansi dalam setiap aspek bisnis.</p>
+                                </div>
+                                <div class="value-item">
+                                    <i class="bi bi-people"></i>
+                                    <h4>Kolaborasi</h4>
+                                    <p>Kami percaya bahwa kerja sama adalah kunci kesuksesan bersama.</p>
+                                </div>
+                                <div class="value-item">
+                                    <i class="bi bi-lightbulb"></i>
+                                    <h4>Inovasi</h4>
+                                    <p>Kami terus berinovasi untuk memberikan solusi terbaik kepada pelanggan.</p>
+                                </div>
+                                <div class="value-item">
+                                    <i class="bi bi-heart"></i>
+                                    <h4>Peduli</h4>
+                                    <p>Kami peduli terhadap lingkungan dan masyarakat sekitar.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Struktur Grup</h2>
+                    <div class="org-structure">
+                        <div class="org-item">
+                            <h4>PT Sun Menara Mandiri</h4>
+                            <p>Holding Company & Layanan Keuangan</p>
+                        </div>
+                        <div class="org-item">
+                            <h4>PT TIGA BINTANG MAHAWIRA</h4>
+                            <p>Bisnis & Investasi Strategis</p>
+                        </div>
+                        <div class="org-item">
+                            <h4>BG Bank</h4>
+                            <p>Layanan Perbankan Digital</p>
+                        </div>
+                        <div class="org-item">
+                            <h4>Sun Property</h4>
+                            <p>Pengembangan Properti</p>
+                        </div>
+                        <div class="org-item">
+                            <h4>Sun Finance</h4>
+                            <p>Layanan Keuangan</p>
+                        </div>
+                        <div class="org-item">
+                            <h4>Sun Investment</h4>
+                            <p>Investasi & Portfolio</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-section">
+                    <h3>Tim Kami</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><i class="bi bi-person-badge"></i> ID Karyawan</th>
+                                    <th><i class="bi bi-person"></i> Nama</th>
+                                    <th><i class="bi bi-briefcase"></i> Jabatan</th>
+                                    <th><i class="bi bi-building"></i> Departemen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>EMP001</td>
+                                    <td>Sundoyo</td>
+                                    <td>Direktur Utama</td>
+                                    <td>Eksekutif</td>
+                                </tr>
+                                <tr>
+                                    <td>EMP002</td>
+                                    <td>Dedy Oktafriansyah</td>
+                                    <td>Direktur Keuangan</td>
+                                    <td>Keuangan</td>
+                                </tr>
+                                <tr>
+                                    <td>EMP003</td>
+                                    <td>Agustinus</td>
+                                    <td>Manager Admin</td>
+                                    <td>Administrasi</td>
+                                </tr>
+                                <tr>
+                                    <td>EMP004</td>
+                                    <td>Nasrul Choliq</td>
+                                    <td>Manager Operasional</td>
+                                    <td>Operasional</td>
+                                </tr>
+                                <tr>
+                                    <td>EMP005</td>
+                                    <td>Khoirul Masyuri</td>
+                                    <td>Purchase</td>
+                                    <td>Perbankan</td>
+                                </tr>
+                                <tr>
+                                    <td>EMP006</td>
+                                    <td>Ari Rizal Firmansyah</td>
+                                    <td>IT Staff</td>
+                                    <td>Teknologi Informasi</td>
+                                </tr>
+                                <tr>
+                                    <td>EMP007</td>
+                                    <td>Restu Adam Wiguna</td>
+                                    <td>IT Staff</td>
+                                    <td>Teknologi Informasi</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="content-section contact-section">
+                    <h2>Hubungi Kami</h2>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <i class="bi bi-geo-alt"></i>
+                            <h4>Alamat</h4>
+                            <p>Jl. Sudirman No. 123<br>Jakarta Pusat 10220<br>Indonesia</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="bi bi-telephone"></i>
+                            <h4>Telepon</h4>
+                            <p>+62 21 1234 5678<br>+62 21 1234 5679</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="bi bi-envelope"></i>
+                            <h4>Email</h4>
+                            <p>info@sunmenaramandiri.com<br>contact@sunmenaramandiri.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Page fade animation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.animation = 'fadeIn 0.8s ease-in-out forwards';
+        });
+
+        // Add fade effect to navigation links
+        document.querySelectorAll('a[href]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && !href.startsWith('#') && !href.startsWith('javascript:') && !href.includes('mailto:')) {
+                    e.preventDefault();
+                    document.body.style.animation = 'fadeIn 0.3s ease-in-out reverse';
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Dashboard - Operations & Ledger</title>
+
+<!-- Bootstrap & Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+:root {
+    --primary-gradient: linear-gradient(135deg, #004d99, #1a4f7a);
+    --card-shadow: 0 10px 30px rgba(0,0,0,.1);
+}
+
+body {
+    background: #f1f4f8;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.bg-bank {
+    background: var(--primary-gradient);
+}
+
+.text-bank {
+    color: #004d99;
+}
+
+/* Sidebar */
+#sidebar {
+    background: #fff;
+    min-height: 100vh;
+    box-shadow: 2px 0 10px rgba(0,0,0,.05);
+}
+
+#sidebar .nav-link {
+    color: #6c757d;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin: 5px 10px;
+    transition: .3s;
+}
+
+#sidebar .nav-link.active,
+#sidebar .nav-link:hover {
+    background: var(--primary-gradient);
+    color: #fff;
+}
+
+/* Section control */
+.hidden {
+    display: none !important;
+}
+
+/* Animations */
+.slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Notification styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    max-width: 400px;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.notification.info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+}
+
+/* Cards */
+.metric-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+.table {
+    box-shadow: var(--card-shadow);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background: var(--primary-gradient);
+    color: white;
+}
+</style>
+</head>
+
+<body>
+    <div class="liquid-bg">
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+    </div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-bank sticky-top">
+<div class="container-fluid">
+    <span class="navbar-brand fw-bold">
+        <i class="bi bi-bank me-2"></i> Admin PT Sun Menara Mandiri
+    </span>
+    <button class="btn btn-outline-light btn-sm" onclick="logout()">
+        <i class="bi bi-box-arrow-right"></i> Logout
+    </button>
+</div>
+</nav>
+
+<div class="container-fluid">
+<div class="row">
+
+<!-- SIDEBAR -->
+<nav id="sidebar" class="col-md-3 col-lg-2 pt-3">
+<ul class="nav flex-column">
+
+<li class="nav-item">
+<a class="nav-link active" href="javascript:void(0)"
+onclick="showAdminContent('transactionLog')">
+<i class="bi bi-list-columns-reverse me-2"></i>
+Riwayat Transaksi
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="javascript:void(0)"
+onclick="showAdminContent('ledgerBook')">
+<i class="bi bi-calculator me-2"></i>
+Pembukuan & Metrik
+</a>
+</li>
+
+</ul>
+</nav>
+
+<!-- MAIN -->
+<main class="col-md-9 col-lg-10 px-4 py-4">
+
+<h2 class="text-bank fw-bold mb-4">Admin Operations Center</h2>
+
+<!-- TRANSACTION LOG -->
+<div id="transactionLog" class="section">
+
+<h4>Riwayat Transaksi</h4>
+<p class="text-muted">Log transaksi masuk terbaru.</p>
+
+<div class="card mb-4">
+<div class="card-header bg-bank text-white fw-bold">
+Log Masuk Terbaru
+</div>
+<div class="card-body p-0">
+<table class="table table-hover mb-0">
+<thead>
+<tr>
+<th>Waktu</th>
+<th>Ref ID</th>
+<th>Tipe</th>
+<th>Nominal</th>
+<th>Mata Uang</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="transactionTableBody">
+<tr>
+<td colspan="6" class="text-center text-muted">Memuat data transaksi...</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<!-- LEDGER BOOK -->
+<div id="ledgerBook" class="section hidden">
+
+<h4>Pembukuan & Analisis Transaksi</h4>
+<p class="text-muted">Statistik transaksi berhasil.</p>
+
+<div class="row mb-4">
+
+<div class="col-md-3">
+<div class="metric-card">
+<div class="text-muted small">Volume Harian (IDR)</div>
+<h5 id="dailyVolumeIDR" class="fw-bold text-bank">Rp 0</h5>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="metric-card">
+<div class="text-muted small">Volume Mingguan (IDR)</div>
+<h5 id="weeklyVolumeIDR" class="fw-bold text-bank">Rp 0</h5>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="metric-card">
+<div class="text-muted small">Volume Bulanan (IDR)</div>
+<h5 id="monthlyVolumeIDR" class="fw-bold text-bank">Rp 0</h5>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="metric-card">
+<div class="text-muted small">Total Volume Valas</div>
+<h5 id="totalVolumeValas" class="fw-bold text-success">$0</h5>
+</div>
+</div>
+
+</div>
+
+<div class="card">
+<div class="card-header bg-bank text-white fw-bold">
+Ringkasan Transaksi per Tipe
+</div>
+<div class="card-body p-0">
+<table class="table mb-0">
+<thead>
+<tr>
+<th>Tipe</th>
+<th>Jumlah</th>
+<th>Total IDR</th>
+<th>Total Valas</th>
+</tr>
+</thead>
+<tbody id="summaryTableBody">
+<tr>
+<td colspan="4" class="text-center text-muted">Memuat data ringkasan...</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</main>
+</div>
+</div>
+
+<!-- SCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Admin App Script - MUST be loaded after Bootstrap -->
+<script src="js/admin_app.js"></script>
+
+<script>
+// Enhanced notification system
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="bi bi-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
+        ${message}
+    `;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => notification.classList.add('show'), 100);
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
+}
+
+function showAdminContent(id) {
+    // Hide all sections with fade out
+    document.querySelectorAll('.section').forEach(s => {
+        s.classList.add('hidden');
+        s.classList.remove('slide-in-left', 'slide-in-right', 'fade-in');
+    });
+
+    // Show selected section with animation
+    setTimeout(() => {
+        const targetSection = document.getElementById(id);
+        targetSection.classList.remove('hidden');
+
+        // Apply different animations based on section
+        if (id === 'transactionLog') {
+            targetSection.classList.add('slide-in-left');
+        } else if (id === 'ledgerBook') {
+            targetSection.classList.add('slide-in-right');
+        } else {
+            targetSection.classList.add('fade-in');
+        }
+    }, 150);
+
+    // Update sidebar active state
+    document.querySelectorAll('#sidebar .nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+
+    const activeLink = document.querySelector(`#sidebar a[onclick="showAdminContent('${id}')"]`);
+    if (activeLink) activeLink.classList.add('active');
+}
+
+function logout() {
+    localStorage.clear();
+    window.location.href = 'login.html';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    showAdminContent('transactionLog');
+});
+</script>
+
+</body>
+</html>

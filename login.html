@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Glass Login - PT Sun Menara Mandiri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0c0c0c, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Liquid Background Animation */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .liquid-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(0, 123, 255, 0.1), rgba(138, 43, 226, 0.1));
+            animation: liquidFloat 20s ease-in-out infinite;
+        }
+
+        .liquid-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .liquid-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .liquid-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        .liquid-shape:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            right: 30%;
+            animation-delay: 15s;
+        }
+
+        @keyframes liquidFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                border-radius: 50%;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                border-radius: 30% 70% 70% 30%;
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+                border-radius: 70% 30% 30% 70%;
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+                border-radius: 30% 70% 30% 70%;
+            }
+        }
+
+        /* Glass Container */
+        .glass-container {
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 0;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: glassMorph 8s ease-in-out infinite;
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 25px; }
+            25% { border-radius: 30px 20px 25px 30px; }
+            50% { border-radius: 20px 30px 30px 20px; }
+            75% { border-radius: 30px 25px 20px 30px; }
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: liquidShine 4s ease-in-out infinite;
+        }
+
+        @keyframes liquidShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Header Section */
+        .glass-header {
+            background: linear-gradient(135deg,
+                rgba(0, 123, 255, 0.3),
+                rgba(138, 43, 226, 0.3),
+                rgba(255, 0, 150, 0.3));
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('img/ptsun.png');
+            background-size: 80px;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.1;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        .logo-glass {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-glass img {
+            width: 55px;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .glass-header h2 {
+            color: white;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .glass-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin: 8px 0 0;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Body Section */
+        .glass-body {
+            padding: 40px 30px;
+        }
+
+        .form-floating {
+            margin-bottom: 25px;
+        }
+
+        .form-floating > label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: white;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(0, 123, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+            color: white;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Liquid Button */
+        .liquid-btn {
+            width: 100%;
+            background: linear-gradient(45deg,
+                rgba(0, 123, 255, 0.8),
+                rgba(138, 43, 226, 0.8),
+                rgba(255, 0, 150, 0.8));
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .liquid-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .liquid-btn:hover::before {
+            left: 100%;
+        }
+
+        .liquid-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .liquid-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Error Alert */
+        .liquid-alert {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: #ff6b7d;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+            animation: liquidShake 0.5s ease-in-out;
+        }
+
+        @keyframes liquidShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Role Switch */
+        .role-switch {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .role-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin: 0 5px;
+        }
+
+        .role-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .glass-footer {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0 0 25px 25px;
+        }
+
+        .glass-footer p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .glass-footer a {
+            color: rgba(0, 123, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .glass-footer a:hover {
+            color: rgba(0, 123, 255, 1);
+            text-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Features Section */
+        .features-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-link {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .feature-link:hover {
+            color: rgba(0, 123, 255, 0.9);
+            transform: translateX(5px);
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .liquid-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid rgba(0, 123, 255, 0.8);
+            border-radius: 50%;
+            animation: liquidSpin 1s linear infinite;
+        }
+
+        @keyframes liquidSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .glass-container {
+                padding: 0 15px;
+            }
+
+            .glass-header,
+            .glass-body,
+            .glass-footer {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .glass-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Admin/User specific styles */
+        .admin-header {
+            background: linear-gradient(135deg,
+                rgba(255, 193, 7, 0.3),
+                rgba(255, 87, 34, 0.3)) !important;
+        }
+
+        .user-header {
+            background: linear-gradient(135deg,
+                rgba(40, 167, 69, 0.3),
+                rgba(34, 197, 94, 0.3)) !important;
+        }
+
+        .role-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 3;
+        }
+
+        .role-admin {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border-color: rgba(255, 193, 7, 0.3);
+        }
+
+        .role-user {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border-color: rgba(40, 167, 69, 0.3);
+        }
+
+        .role-btn-admin {
+            background: linear-gradient(45deg,
+                rgba(255, 193, 7, 0.8),
+                rgba(255, 87, 34, 0.8));
+        }
+
+        .role-btn-user {
+            background: linear-gradient(45deg,
+                rgba(40, 167, 69, 0.8),
+                rgba(34, 197, 94, 0.8));
+        }
+
+        .role-switch .role-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Verification Form Styles */
+        .verification-section {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .verification-icon {
+            margin-bottom: 20px;
+        }
+
+        .verification-code {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+            letter-spacing: 0.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .verification-code:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(0, 123, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+            color: white;
+        }
+
+        .verify-btn {
+            width: 100%;
+            background: linear-gradient(45deg,
+                rgba(0, 123, 255, 0.8),
+                rgba(138, 43, 226, 0.8),
+                rgba(255, 0, 150, 0.8));
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .verify-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .resend-btn, .back-btn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .resend-btn:hover, .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: white;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="liquid-bg">
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+    </div>
+
+    <div class="glass-container">
+        <div class="glass-card">
+            <div class="glass-header" id="header">
+                <div class="role-indicator" id="roleIndicator">User</div>
+                <div class="logo-container">
+                    <div class="logo-glass">
+                        <img src="img/ptsun.png" alt="PT Sun Menara Mandiri">
+                    </div>
+                </div>
+                <h2>Login</h2>
+                <p>Akses Layanan Perbankan Digital</p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm">
+                <div class="glass-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="username" placeholder="Username">
+                        <label for="username"><i class="bi bi-person me-2"></i>Username</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="Email">
+                        <label for="email"><i class="bi bi-envelope me-2"></i>Email</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <label for="password"><i class="bi bi-lock me-2"></i>Password</label>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="bi bi-eye-slash" id="eyeIcon"></i>
+                        </button>
+                    </div>
+
+                    <button class="liquid-btn" id="loginBtn">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>LOGIN
+                    </button>
+
+                    <div class="text-center mb-3" id="forgotPasswordLink">
+                        <a href="forgot-password.html" class="text-decoration-none">
+                            <i class="bi bi-key me-2"></i>Lupa Password?
+                        </a>
+                    </div>
+
+                    <div class="role-switch">
+                        <button class="role-btn active" id="userBtn" data-role="user">
+                            <i class="bi bi-person me-2"></i>User
+                        </button>
+                        <button class="role-btn" id="adminBtn" data-role="admin">
+                            <i class="bi bi-shield me-2"></i>Admin
+                        </button>
+                    </div>
+
+                    <div class="features-section">
+                        <div class="feature-link">
+                            <i class="bi bi-shield-check me-2"></i>
+                            <strong>Fitur Keamanan:</strong>
+                        </div>
+                        <ul class="list-unstyled ms-3 mt-2">
+                            <li class="feature-link"><i class="bi bi-check-circle me-2"></i>Enkripsi data end-to-end</li>
+                            <li class="feature-link"><i class="bi bi-check-circle me-2"></i>Multi-faktor authentication</li>
+                            <li class="feature-link"><i class="bi bi-check-circle me-2"></i>Session management aman</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verification Form -->
+            <div id="verificationForm" style="display: none;">
+                <div class="verification-section">
+                    <div class="verification-icon">
+                        <i class="bi bi-envelope text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h2 class="text-white mb-3">Verifikasi Login</h2>
+                    <p class="text-white-50 mb-4">Masukkan kode verifikasi yang dikirim ke email Anda</p>
+
+                    <div class="mb-4">
+                        <input type="text" class="verification-code" id="verificationCode" placeholder="000000" maxlength="6">
+                    </div>
+
+                    <button class="verify-btn" id="verifyBtn" onclick="handleVerify()">
+                        <i class="bi bi-check-circle me-2"></i>VERIFIKASI
+                    </button>
+
+                    <button class="resend-btn" id="resendBtn">
+                        <i class="bi bi-arrow-clockwise me-2"></i>KIRIM ULANG KODE
+                    </button>
+
+                    <button class="back-btn" id="backBtn">
+                        <i class="bi bi-arrow-left me-2"></i>Kembali ke Login
+                    </button>
+                </div>
+            </div>
+
+
+
+            <div class="glass-footer">
+                <p><i class="bi bi-lock me-2"></i>Login aman & terenkripsi | <a href="register.html">Daftar Akun</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="liquid-spinner"></div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init('zUQcqQ8B8hEQ6WLRQ'); // EmailJS public key
+        })();
+
+        // Role management
+        let currentRole = 'user';
+        let verificationCode = '';
+        let loginData = {};
+
+        function updateRoleUI(role) {
+            const header = document.getElementById('header');
+            const roleIndicator = document.getElementById('roleIndicator');
+            const userBtn = document.getElementById('userBtn');
+            const adminBtn = document.getElementById('adminBtn');
+            const loginBtn = document.getElementById('loginBtn');
+            const registerLink = document.querySelector('.glass-footer a');
+
+            // Remove all role classes
+            header.classList.remove('admin-header', 'user-header');
+            roleIndicator.classList.remove('role-admin', 'role-user');
+            userBtn.classList.remove('active');
+            adminBtn.classList.remove('active');
+            loginBtn.classList.remove('role-btn-admin', 'role-btn-user');
+
+            // Add appropriate classes
+            if (role === 'admin') {
+                header.classList.add('admin-header');
+                roleIndicator.classList.add('role-admin');
+                roleIndicator.textContent = 'Admin';
+                adminBtn.classList.add('active');
+                loginBtn.classList.add('role-btn-admin');
+                // Hide register link for admin
+                if (registerLink) {
+                    registerLink.style.display = 'none';
+                }
+            } else {
+                header.classList.add('user-header');
+                roleIndicator.classList.add('role-user');
+                roleIndicator.textContent = 'User';
+                userBtn.classList.add('active');
+                loginBtn.classList.add('role-btn-user');
+                // Show register link for user
+                if (registerLink) {
+                    registerLink.style.display = 'inline';
+                }
+            }
+
+            currentRole = role;
+        }
+
+        // Generate 6-digit verification code
+        function generateVerificationCode() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        // Send verification code via EmailJS
+        async function sendVerificationCode(email, code) {
+            const templateParams = {
+                to_email: email,
+                verification_code: code
+            };
+
+            try {
+                const result = await emailjs.send(
+                    'service_h7jhgy2', // EmailJS service ID
+                    'template_hsed8i7', // EmailJS template ID
+                    templateParams
+                );
+                return result;
+            } catch (error) {
+                console.error('EmailJS error:', error);
+                throw error;
+            }
+        }
+
+        // Switch to verification form
+        function showVerificationForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('verificationForm').style.display = 'block';
+            document.getElementById('verificationCode').focus();
+        }
+
+        // Switch back to login form
+        function showLoginForm() {
+            document.getElementById('verificationForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('verificationCode').value = '';
+            verificationCode = '';
+            loginData = {};
+        }
+
+        // Event listeners for role switching
+        document.getElementById('userBtn').addEventListener('click', () => updateRoleUI('user'));
+        document.getElementById('adminBtn').addEventListener('click', () => updateRoleUI('admin'));
+
+        // Password toggle functionality
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+        const eyeIcon = document.querySelector('#eyeIcon');
+
+        togglePassword.addEventListener('click', function () {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+
+            if (type === 'password') {
+                eyeIcon.classList.remove('bi-eye');
+                eyeIcon.classList.add('bi-eye-slash');
+            } else {
+                eyeIcon.classList.remove('bi-eye-slash');
+                eyeIcon.classList.add('bi-eye');
+            }
+        });
+
+        // Login functionality - direct backend call without email verification
+        document.getElementById('loginBtn').addEventListener('click', async function (e) {
+            e.preventDefault();
+
+            const username = document.querySelector('#username').value.trim();
+            const email = document.querySelector('#email').value.trim();
+            const password = document.querySelector('#password').value.trim();
+
+            if (!username || !password) {
+                showError('Username dan password harus diisi!');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            // Prepare login data - use username or email for login
+            loginData = { user: username, password: password };
+
+            // Perform login directly
+            await performLogin();
+        });
+
+        // Verification functionality
+        function handleVerify() {
+            const enteredCode = document.getElementById('verificationCode').value.trim();
+
+            if (!enteredCode) {
+                showError('Masukkan kode verifikasi!');
+                return;
+            }
+
+            if (enteredCode !== verificationCode) {
+                showError('Kode verifikasi salah!');
+                return;
+            }
+
+            // Code is correct, proceed with login
+            performLogin();
+        }
+
+        // Perform actual login after verification
+        async function performLogin() {
+            // Show loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(loginData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store token and role
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', currentRole);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+
+                    // Redirect based on role
+                    if (currentRole === 'admin') {
+                        window.location.href = 'admin.html';
+                    } else {
+                        window.location.href = 'user.html';
+                    }
+                } else {
+                    showError(data.message || 'Login gagal!');
+                    showLoginForm(); // Go back to login form on failure
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Terjadi kesalahan saat login');
+                showLoginForm(); // Go back to login form on error
+            } finally {
+                // Hide loading
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }
+        }
+
+        // Resend verification code
+        document.getElementById('resendBtn').addEventListener('click', async function() {
+            const email = document.querySelector('#email').value.trim();
+
+            if (!email) {
+                showError('Email tidak tersedia untuk kirim ulang!');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            try {
+                // Generate new verification code
+                verificationCode = generateVerificationCode();
+
+                // Send verification code via email
+                await sendVerificationCode(email, verificationCode);
+
+                // Hide loading
+                document.getElementById('loadingOverlay').style.display = 'none';
+
+                // Show success message
+                showSuccess('Kode verifikasi baru telah dikirim ke email Anda');
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                showError('Gagal mengirim kode verifikasi. Silakan coba lagi.');
+            }
+        });
+
+        // Back to login button
+        document.getElementById('backBtn').addEventListener('click', showLoginForm);
+
+        function showError(message) {
+            // Remove existing alerts
+            const existingAlert = document.querySelector('.liquid-alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+
+            // Create new error alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'liquid-alert';
+            alertDiv.innerHTML = `<i class="bi bi-exclamation-triangle me-2"></i>${message}`;
+
+            // Insert after current active button/form
+            const activeForm = document.getElementById('loginForm').style.display !== 'none' ?
+                document.getElementById('loginBtn') : document.getElementById('verifyBtn');
+            activeForm.parentNode.insertBefore(alertDiv, activeForm.nextSibling);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+
+        function showSuccess(message) {
+            // Remove existing alerts
+            const existingAlert = document.querySelector('.liquid-alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+
+            // Create new success alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'liquid-alert';
+            alertDiv.style.background = 'rgba(40, 167, 69, 0.2)';
+            alertDiv.style.borderColor = 'rgba(40, 167, 69, 0.3)';
+            alertDiv.style.color = '#28a745';
+            alertDiv.innerHTML = `<i class="bi bi-check-circle me-2"></i>${message}`;
+
+            // Insert after login button
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.parentNode.insertBefore(alertDiv, loginBtn.nextSibling);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+
+        // Initialize with user role
+        updateRoleUI('user');
+
+        // Enter key support for login form
+        document.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                if (document.getElementById('loginForm').style.display !== 'none') {
+                    document.getElementById('loginBtn').click();
+                } else {
+                    handleVerify();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
