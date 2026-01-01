@@ -1,0 +1,362 @@
+/* css/main.css */
+
+/* --- 1. Variabel Warna (Color Palette) --- */
+:root {
+    --color-primary: #002b5c;       /* Biru Gelap Default (Header & Aksen Utama) */
+    --color-secondary: #f4f4f9;     /* Abu-abu Muda (Latar Belakang Body) */
+    --color-sidebar-bg: #ffffff;    /* Putih (Latar Belakang Sidebar) */
+    --color-link-hover: #e8f0fe;    /* Light Blue Hover */
+    --color-accent-success: #28a745; /* Hijau (Aksi Download/Sukses) */
+    --color-accent-danger: #d9534f;  /* Merah (Aksi PDF/Danger) */
+    --color-text-dark: #333333;
+    --sidebar-width: 250px;         /* Lebar Sidebar yang ideal */
+}
+
+/* --- 2. Styling Global --- */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+}
+
+/* Override Bootstrap Colors */
+.bg-primary-bank {
+    background-color: var(--color-primary) !important;
+}
+
+.text-primary-bank {
+    color: var(--color-primary) !important;
+}
+
+/* LOGO dan INFO di Top Bar */
+.logo-top-bar {
+    height: 32px;        /* Ukuran ideal dan elegan */
+    width: auto;         
+    transition: transform 0.3s ease;
+}
+.logo-top-bar:hover {
+    transform: scale(1.05);
+}
+
+/* Styling untuk teks logo di navbar */
+.navbar-brand span {
+    color: white; /* Memastikan teks nama bank (BG BANK) berwarna putih */
+    font-size: 1.1rem;
+}
+
+.info-saldo {
+    font-size: 0.9rem;
+    padding: 0 15px;
+    color: white; /* Teks saldo/selamat datang berwarna putih di header gelap */
+    /* Garis pemisah opsional (nonaktifkan jika tidak diperlukan) */
+    /* border-left: 1px solid rgba(255, 255, 255, 0.3); */ 
+}
+
+
+/* --- 3. Styling Sidebar (#sidebar) --- */
+#sidebar {
+    width: var(--sidebar-width); 
+    height: 100vh; 
+    background-color: var(--color-sidebar-bg);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05); 
+    position: fixed; 
+    top: 0; 
+    /* Padding untuk memastikan konten sidebar di bawah header */
+    padding-top: 56px !important; 
+    z-index: 1000;
+}
+
+/* Adjust Main Content Area Margin */
+/* Hanya berlaku untuk layar medium ke atas (desktop) */
+.col-md-9.ms-sm-auto {
+    /* Menggeser konten utama sesuai lebar sidebar */
+    margin-left: var(--sidebar-width) !important; 
+    width: calc(100% - var(--sidebar-width));
+    padding-top: 56px; /* Agar konten tidak tertutup header */
+}
+
+.nav-link {
+    color: var(--color-text-dark);
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: var(--color-link-hover);
+    color: var(--color-primary);
+}
+
+/* Status menu aktif */
+.nav-item .nav-link.active {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+
+/* --- 4. Styling Konten Utama (Cards) --- */
+.card-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+/* Card Khusus Profil Perusahaan */
+.company-profile-card {
+    background-color: #fcfcfc;
+    border: 1px solid #e0e0e0;
+}
+.company-profile-card h4 {
+    color: var(--color-primary); 
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+/* Untuk menyembunyikan bagian konten yang tidak aktif */
+.section.hidden {
+    display: none;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+.form-control, .form-select {
+    border-radius: 4px;
+}
+
+/* --- 5. Styling Menu SWIFT (Formulir Valas) --- */
+.menu-swift {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.menu-swift button {
+    flex: 1 1 200px;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.menu-swift button:hover {
+    background: var(--color-link-hover);
+}
+
+/* --- 6. Styling Tombol Aksi --- */
+
+/* Mengoverride tombol .btn-primary Bootstrap ke warna bank */
+.btn-primary, .btn-primary:focus {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #001a38; /* Warna yang sedikit lebih gelap */
+    border-color: #001a38;
+}
+
+.btn-accent-success {
+    background-color: var(--color-accent-success);
+    color: white;
+    border: none;
+}
+.btn-accent-danger {
+    background-color: var(--color-accent-danger);
+    color: white;
+    border: none;
+}
+.btn.bg-primary-bank {
+    color: white;
+}
+.btn.bg-primary-bank:hover {
+    background-color: #001a38 !important;
+}
+
+/* Pre untuk tampilan pesan SWIFT */
+pre {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    border: 1px solid #eee;
+}
+
+/* --- 7. Animasi dan Keyframes --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* --- 8. Styling untuk Halaman Publik (Index) --- */
+.jumbotron {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #004080 100%);
+    color: white;
+    padding: 4rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.jumbotron::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.3;
+}
+
+.jumbotron h1, .jumbotron p, .jumbotron .mt-4 {
+    position: relative;
+    z-index: 1;
+}
+
+.feature-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e9ecef;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,43,92,0.1), transparent);
+    transition: left 0.5s;
+}
+
+.feature-card:hover::before {
+    left: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    border-color: var(--color-primary);
+}
+
+.property-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.property-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    border-color: var(--color-primary);
+}
+
+.property-img {
+    background: linear-gradient(135deg, var(--color-secondary) 0%, #e8f0fe 100%);
+    padding: 25px;
+    text-align: center;
+    color: var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.property-card:hover .property-img {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #004080 100%);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Animasi untuk elemen dengan --i */
+.feature-card, .property-card, .card-content {
+    animation: fadeInUp 1s ease-out calc(var(--i) * 0.2s) both;
+}
+
+h2[style*="--i"] {
+    animation: fadeInUp 1s ease-out calc(var(--i) * 0.2s) both;
+}
+
+/* --- 8. Responsif dan Hamburger Menu (BARU DITAMBAHKAN) --- */
+
+@media (max-width: 768px) {
+    /* Atur Sidebar untuk Layar Mobile/Tablet */
+    #sidebar {
+        /* Mengganti 'fixed' menjadi 'absolute' untuk overlay yang lebih fleksibel */
+        position: absolute;
+        width: 80%; /* Berikan lebar yang cukup di mobile */
+        height: auto;
+        max-height: 100vh;
+        overflow-y: auto; /* Untuk menu yang panjang */
+        z-index: 1050;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        /* Default disembunyikan, hanya muncul saat di-toggle oleh JS (d-block) */
+    }
+
+    /* Di perangkat mobile, konten utama menempati 100% lebar */
+    .col-md-9.ms-sm-auto {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    /* Memastikan logo terpusat di mobile jika hamburger tidak ada,
+       atau menyesuaikan diri di samping tombol hamburger. */
+    .navbar-brand {
+        margin-left: 0 !important;
+        /* Hapus margin-left auto jika tombol hamburger ada */
+    }
+
+    /* Sembunyikan saldo di mobile untuk menghemat ruang */
+    .info-saldo.d-sm-block {
+        display: none !important;
+    }
+}

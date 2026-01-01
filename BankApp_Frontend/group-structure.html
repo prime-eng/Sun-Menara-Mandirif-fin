@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Struktur Grup - PT Sun Menara Mandiri Group</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0c0c0c, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+            color: white;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Liquid Background Animation */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .liquid-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(0, 123, 255, 0.1), rgba(138, 43, 226, 0.1));
+            animation: liquidFloat 20s ease-in-out infinite;
+        }
+
+        .liquid-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .liquid-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .liquid-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        .liquid-shape:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            right: 30%;
+            animation-delay: 15s;
+        }
+
+        @keyframes liquidFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                border-radius: 50%;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                border-radius: 30% 70% 70% 30%;
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+                border-radius: 70% 30% 30% 70%;
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+                border-radius: 30% 70% 30% 70%;
+            }
+        }
+
+        /* Glass Container */
+        .glass-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: glassMorph 8s ease-in-out infinite;
+            margin-bottom: 30px;
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 25px; }
+            25% { border-radius: 30px 20px 25px 30px; }
+            50% { border-radius: 20px 30px 30px 20px; }
+            75% { border-radius: 30px 25px 20px 30px; }
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: liquidShine 4s ease-in-out infinite;
+        }
+
+        @keyframes liquidShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Enhanced Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .navbar-brand img {
+            filter: brightness(0) invert(1);
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .btn-outline-light {
+            border-color: rgba(255, 255, 255, 0.5) !important;
+            color: white !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(255, 255, 255, 0.8) !important;
+            color: white !important;
+        }
+
+        .btn-warning {
+            background: linear-gradient(45deg, rgba(255, 193, 7, 0.8), rgba(255, 87, 34, 0.8)) !important;
+            border: none !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Jumbotron */
+        .jumbotron {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .jumbotron h1 {
+            color: white;
+            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .jumbotron p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Org Chart */
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .org-level {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .org-node {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            min-width: 200px;
+            color: white;
+        }
+
+        .org-node.holding-company {
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.3), rgba(138, 43, 226, 0.3));
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 123, 255, 0.3);
+        }
+
+        .org-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .org-node h5 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .org-node p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .org-connector {
+            width: 2px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .org-connector::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .jumbotron h1 {
+                font-size: 2rem;
+            }
+
+            .jumbotron {
+                padding: 40px 20px;
+            }
+
+            .glass-container {
+                padding: 0 15px;
+            }
+
+            .glass-card {
+                padding: 20px;
+            }
+
+            .org-level {
+                gap: 20px;
+            }
+
+            .org-node {
+                min-width: 150px;
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="liquid-bg">
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary-bank sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="img/ptsun.png" alt="Logo Perusahaan" class="logo-top-bar me-2" style="height:32px;">
+                <span class="fw-bold">PT Sun Menara Mandiri</span>
+            </a>
+
+            <div class="d-flex gap-2">
+                <a href="about.html" class="btn btn-outline-light btn-sm">Tentang Kami</a>
+                <a href="group-structure.html" class="btn btn-outline-light btn-sm">Struktur Grup</a>
+                <a href="business-portfolio.html" class="btn btn-outline-light btn-sm">Portofolio</a>
+                <a href="team.html" class="btn btn-outline-light btn-sm">Tim Kami</a>
+                <a href="properties.html" class="btn btn-outline-light btn-sm">Properti</a>
+                <a href="login.html?role=user" class="btn btn-outline-light btn-sm">Login User</a>
+                <a href="login.html?role=admin" class="btn btn-warning btn-sm">Login Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="jumbotron text-center">
+            <h1 style="--i: 0; animation: fadeInUp 1s ease-out 0.2s both;">Struktur Grup</h1>
+            <p class="lead" style="--i: 0; animation: fadeInUp 1s ease-out 0.4s both;">Struktur korporasi PT Sun Menara Mandiri Group yang menunjukkan hubungan antara holding company dan anak perusahaan.</p>
+        </div>
+
+        <!-- Organizational Chart -->
+        <div class="org-chart" style="--i: 1; animation: fadeInUp 1s ease-out 0.6s both;">
+            <!-- Holding Company Level -->
+            <div class="org-level">
+                <div class="org-node holding-company">
+                    <h5>PT Sun Menara Mandiri Group</h5>
+                    <p>Holding Company<br>Layanan Keuangan & Properti</p>
+                </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="org-connector"></div>
+
+            <!-- Subsidiary Level -->
+            <div class="org-level">
+                <div class="org-node">
+                    <h5>PT Sun Menara Mandiri</h5>
+                    <p>Unit Bisnis Utama<br>Layanan Perbankan & Properti</p>
+                </div>
+                <div class="org-node">
+                    <h5>PT TIGA BINTANG MAHAWIRA</h5>
+                    <p>Anak Perusahaan<br>Bisnis & Investasi Strategis</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Structure Explanation -->
+        <div class="glass-card" style="--i: 2; animation: fadeInUp 1s ease-out 1.2s both;">
+            <h3 class="text-center mb-4 text-primary-bank">Penjelasan Struktur</h3>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>PT Sun Menara Mandiri Group (Holding Company)</h5>
+                    <p>Sebagai holding company, PT Sun Menara Mandiri Group bertanggung jawab atas:</p>
+                    <ul class="text-light">
+                        <li>Strategi korporasi keseluruhan</li>
+                        <li>Pengelolaan portofolio investasi</li>
+                        <li>Supervisi anak perusahaan</li>
+                        <li>Pengembangan bisnis strategis</li>
+                        <li>Governance dan compliance</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Anak Perusahaan</h5>
+                    <p>Struktur anak perusahaan memungkinkan spesialisasi dan fokus pada bidang bisnis masing-masing:</p>
+                    <ul class="text-light">
+                        <li><strong>PT Sun Menara Mandiri:</strong> Layanan keuangan dan properti</li>
+                        <li><strong>PT TIGA BINTANG MAHAWIRA:</strong> Bisnis dan investasi strategis</li>
+                    </ul>
+                    <p class="mt-3">Model ini memungkinkan pertumbuhan yang lebih efisien dan diversifikasi risiko.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits of Structure -->
+        <div class="glass-card" style="--i: 3; animation: fadeInUp 1s ease-out 1.4s both;">
+            <h3 class="text-center mb-4 text-primary-bank">Keunggulan Struktur Holding</h3>
+
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-shield-alt fa-2x text-primary-bank mb-2"></i>
+                        <h6>Risiko Terdiversifikasi</h6>
+                        <p class="small">Pengurangan risiko melalui diversifikasi bisnis</p>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-cogs fa-2x text-primary-bank mb-2"></i>
+                        <h6>Spesialisasi</h6>
+                        <p class="small">Fokus pada kompetensi inti masing-masing unit</p>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-chart-line fa-2x text-primary-bank mb-2"></i>
+                        <h6>Pertumbuhan</h6>
+                        <p class="small">Fleksibilitas untuk ekspansi dan akuisisi</p>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-users fa-2x text-primary-bank mb-2"></i>
+                        <h6>Kolaborasi</h6>
+                        <p class="small">Sinergi antar unit bisnis untuk nilai tambah</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Page fade animation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.animation = 'fadeIn 0.8s ease-in-out forwards';
+        });
+
+        // Add fade effect to navigation links
+        document.querySelectorAll('a[href]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && !href.startsWith('#') && !href.startsWith('javascript:') && !href.includes('mailto:')) {
+                    e.preventDefault();
+                    document.body.style.animation = 'fadeIn 0.3s ease-in-out reverse';
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

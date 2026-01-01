@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Glass Register - PT Sun Menara Mandiri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0c0c0c, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Liquid Background Animation */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .liquid-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(0, 123, 255, 0.1), rgba(138, 43, 226, 0.1));
+            animation: liquidFloat 20s ease-in-out infinite;
+        }
+
+        .liquid-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .liquid-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .liquid-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        .liquid-shape:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            right: 30%;
+            animation-delay: 15s;
+        }
+
+        @keyframes liquidFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                border-radius: 50%;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                border-radius: 30% 70% 70% 30%;
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+                border-radius: 70% 30% 30% 70%;
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+                border-radius: 30% 70% 30% 70%;
+            }
+        }
+
+        /* Glass Container */
+        .glass-container {
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 0;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: glassMorph 8s ease-in-out infinite;
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 25px; }
+            25% { border-radius: 30px 20px 25px 30px; }
+            50% { border-radius: 20px 30px 30px 20px; }
+            75% { border-radius: 30px 25px 20px 30px; }
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: liquidShine 4s ease-in-out infinite;
+        }
+
+        @keyframes liquidShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Header Section */
+        .glass-header {
+            background: linear-gradient(135deg,
+                rgba(40, 167, 69, 0.3),
+                rgba(34, 197, 94, 0.3),
+                rgba(74, 222, 128, 0.3));
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('img/ptsun.png');
+            background-size: 80px;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.1;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        .logo-glass {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-glass img {
+            width: 55px;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .glass-header h2 {
+            color: white;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .glass-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin: 8px 0 0;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Body Section */
+        .glass-body {
+            padding: 40px 30px;
+        }
+
+        .form-floating {
+            margin-bottom: 25px;
+        }
+
+        .form-floating > label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: white;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(40, 167, 69, 0.5);
+            box-shadow: 0 0 20px rgba(40, 167, 69, 0.3);
+            color: white;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Liquid Button */
+        .liquid-btn {
+            width: 100%;
+            background: linear-gradient(45deg,
+                rgba(40, 167, 69, 0.8),
+                rgba(34, 197, 94, 0.8),
+                rgba(74, 222, 128, 0.8));
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .liquid-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .liquid-btn:hover::before {
+            left: 100%;
+        }
+
+        .liquid-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .liquid-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Error Alert */
+        .liquid-alert {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: #ff6b7d;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+            animation: liquidShake 0.5s ease-in-out;
+        }
+
+        @keyframes liquidShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Role Switch */
+        .role-switch {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .role-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin: 0 5px;
+        }
+
+        .role-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .glass-footer {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0 0 25px 25px;
+        }
+
+        .glass-footer p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .glass-footer a {
+            color: rgba(40, 167, 69, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .glass-footer a:hover {
+            color: rgba(40, 167, 69, 1);
+            text-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        }
+
+        /* Features Section */
+        .features-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-link {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .feature-link:hover {
+            color: rgba(40, 167, 69, 0.9);
+            transform: translateX(5px);
+        }
+
+        /* Verification Form */
+        .verification-section {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .verification-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 123, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(0, 123, 255, 0.3);
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .verification-code {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+        }
+
+        .verification-code:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(0, 123, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+            color: white;
+        }
+
+        .verify-btn {
+            width: 100%;
+            background: linear-gradient(45deg,
+                rgba(0, 123, 255, 0.8),
+                rgba(138, 43, 226, 0.8),
+                rgba(255, 0, 150, 0.8));
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .resend-btn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 12px 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .resend-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: white;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: rgba(0, 123, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            color: rgba(0, 123, 255, 1);
+            text-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .liquid-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid rgba(40, 167, 69, 0.8);
+            border-radius: 50%;
+            animation: liquidSpin 1s linear infinite;
+        }
+
+        @keyframes liquidSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .glass-container {
+                padding: 0 15px;
+            }
+
+            .glass-header,
+            .glass-body,
+            .glass-footer,
+            .verification-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .glass-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="liquid-bg">
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+    </div>
+
+    <div class="glass-container">
+        <div class="glass-card">
+            <!-- Register Form -->
+            <div id="registerForm">
+                <div class="glass-header">
+                    <div class="logo-container">
+                        <div class="logo-glass">
+                            <img src="img/ptsun.png" alt="PT Sun Menara Mandiri">
+                        </div>
+                    </div>
+                    <h2>Daftar Akun</h2>
+                    <p>Buat Akses Layanan Perbankan Digital</p>
+                </div>
+
+                <div class="glass-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="user" placeholder="Username">
+                        <label for="user"><i class="bi bi-person me-2"></i>Username</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="Email">
+                        <label for="email"><i class="bi bi-envelope me-2"></i>Email</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <label for="password"><i class="bi bi-lock me-2"></i>Password</label>
+                        <button type="button" class="password-toggle" id="togglePassword" onclick="togglePasswordVisibility()">
+                            <i class="bi bi-eye-slash" id="eyeIcon"></i>
+                        </button>
+                    </div>
+
+                    <button class="liquid-btn" id="registerBtn" onclick="handleRegister()">
+                        <i class="bi bi-person-plus me-2"></i>DAFTAR
+                    </button>
+
+                    <div class="role-switch">
+                        <a href="login.html" class="role-btn">
+                            <i class="bi bi-arrow-left me-2"></i>Sudah punya akun? Login
+                        </a>
+                    </div>
+
+                    <div class="features-section">
+                        <div class="feature-link">
+                            <i class="bi bi-shield-check me-2"></i>
+                            <strong>Tips Keamanan:</strong>
+                        </div>
+                        <ul class="list-unstyled ms-3 mt-2">
+                            <li class="feature-link"><i class="bi bi-check-circle me-2"></i>Data pribadi Anda akan dienkripsi secara aman</li>
+                            <li class="feature-link"><i class="bi bi-check-circle me-2"></i>Pastikan menggunakan email yang aktif</li>
+                            <li class="feature-link"><i class="bi bi-check-circle me-2"></i>Jangan berikan kode OTP kepada siapapun</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="glass-footer">
+                    <p><i class="bi bi-lock me-2"></i>Registrasi aman & terenkripsi | <a href="#">Bantuan</a></p>
+                </div>
+            </div>
+
+            <!-- Verification Form -->
+            <div id="verificationForm" style="display: none;">
+                <div class="verification-section">
+                    <div class="verification-icon">
+                        <i class="bi bi-envelope text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h2 class="text-white mb-3">Verifikasi Email</h2>
+                    <p class="text-white-50 mb-4">Masukkan kode verifikasi yang dikirim ke email Anda</p>
+                    <div class="alert alert-info mb-3" style="background: rgba(0, 123, 255, 0.1); border: 1px solid rgba(0, 123, 255, 0.3); color: rgba(255, 255, 255, 0.9);">
+                        <strong>Tips:</strong> Jika tidak menerima email, periksa folder Spam/Junk atau gunakan kode yang ditampilkan saat registrasi.
+                    </div>
+
+                    <input type="hidden" id="tempId">
+
+                    <div class="mb-4">
+                        <input type="text" class="verification-code" id="verificationCode" placeholder="000000" maxlength="6">
+                    </div>
+
+                    <button class="verify-btn" id="verifyBtn" onclick="handleVerify()">
+                        <i class="bi bi-check-circle me-2"></i>VERIFIKASI
+                    </button>
+
+                    <button class="resend-btn" id="resendBtn">
+                        <i class="bi bi-arrow-clockwise me-2"></i>KIRIM ULANG KODE
+                    </button>
+
+                    <button class="back-btn" id="backBtn">
+                        <i class="bi bi-arrow-left me-2"></i>Kembali ke Registrasi
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading Overlay -->
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="liquid-spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        (function(){
+            emailjs.init('zUQcqQ8B8hEQ6WLRQ'); // EmailJS public key
+        })();
+
+        let verificationCode = '';
+        let userData = {};
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('bi-eye-slash');
+                eyeIcon.classList.add('bi-eye');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('bi-eye');
+                eyeIcon.classList.add('bi-eye-slash');
+            }
+        }
+
+        function generateVerificationCode() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        function sendVerificationEmail(email, code) {
+            const templateParams = {
+                email: email,
+                verification_code: code,
+                company_name: 'PT Sun Menara Mandiri'
+            };
+
+            return emailjs.send('service_h7jhgy2', 'template_hsed8i7', templateParams);
+        }
+
+        async function handleRegister() {
+            const user = document.getElementById('user').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!user || !email || !password) {
+                alert('Harap isi semua field!');
+                return;
+            }
+
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Format email tidak valid!');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            try {
+                // Generate verification code
+                verificationCode = generateVerificationCode();
+                userData = { user, email, password };
+
+                // Register with backend first
+                const response = await fetch('http://127.0.0.1:5000/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ user, email, password, verification_code: verificationCode })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store temp_id for verification
+                    document.getElementById('tempId').value = data.temp_id;
+
+                    // Try to send verification email (don't fail registration if email fails)
+                    try {
+                        await sendVerificationEmail(email, verificationCode);
+                        console.log('Verification email sent successfully');
+                        alert('Email verifikasi telah dikirim. Jika tidak menerima email, gunakan kode: ' + verificationCode);
+                    } catch (emailError) {
+                        console.error('Email sending failed:', emailError);
+                        // Show warning but continue with registration
+                        alert('Registrasi berhasil, namun gagal mengirim email verifikasi. Silakan gunakan kode: ' + verificationCode);
+                    }
+
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    document.getElementById('registerForm').style.display = 'none';
+                    document.getElementById('verificationForm').style.display = 'block';
+                } else {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    alert(data.message || 'Registrasi gagal. Silakan coba lagi.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                alert('Terjadi kesalahan saat registrasi. Silakan coba lagi.');
+            }
+        }
+
+        async function handleVerify() {
+            const code = document.getElementById('verificationCode').value.trim();
+            const tempId = document.getElementById('tempId').value;
+
+            if (code.length !== 6) {
+                alert('Masukkan kode verifikasi 6 digit!');
+                return;
+            }
+
+            if (!tempId) {
+                alert('Data registrasi tidak ditemukan!');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ temp_id: tempId, verification_code: code })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    alert('Registrasi berhasil! Anda akan diarahkan ke halaman login.');
+                    window.location.href = 'login.html';
+                } else {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    alert(data.message || 'Verifikasi gagal. Silakan coba lagi.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                alert('Terjadi kesalahan saat verifikasi. Silakan coba lagi.');
+            }
+        }
+
+        // Resend verification code
+        document.getElementById('resendBtn').addEventListener('click', async function() {
+            if (!userData.email || !document.getElementById('tempId').value) {
+                alert('Data registrasi tidak ditemukan!');
+                return;
+            }
+
+            // Generate new code
+            verificationCode = generateVerificationCode();
+
+            // Show loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            try {
+                // Send verification email via EmailJS
+                await sendVerificationEmail(userData.email, verificationCode);
+
+                // Update verification code in backend
+                const response = await fetch('http://127.0.0.1:5000/update_verification', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        temp_id: document.getElementById('tempId').value,
+                        verification_code: verificationCode
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    alert('Kode verifikasi dikirim ulang!');
+                } else {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    alert('Gagal mengirim ulang kode verifikasi!');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                alert('Gagal mengirim ulang kode verifikasi!');
+            }
+        });
+
+        document.getElementById('backBtn').addEventListener('click', function() {
+            document.getElementById('verificationForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            // Reset data
+            verificationCode = '';
+            userData = {};
+        });
+    </script>
+</body>
+</html>
+

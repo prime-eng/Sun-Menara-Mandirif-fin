@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Connection</title>
+</head>
+<body>
+    <h1>Testing Transaction Connection</h1>
+    <button onclick="addTestTransaction()">Add Test Transaction</button>
+    <button onclick="openAdmin()">Open Admin Dashboard</button>
+    <div id="status"></div>
+
+    <script>
+        function addTestTransaction() {
+            const transaction = {
+                timestamp: new Date().toISOString(),
+                id: 'TEST' + Math.floor(Math.random() * 1000000),
+                type: 'Transfer Rupiah',
+                amount: 50000,
+                currency: 'IDR',
+                status: 'Berhasil',
+                senderName: 'Test User',
+                senderNumber: '1234567890',
+                recipientName: 'Test Recipient',
+                recipientNumber: '0987654321',
+                notes: 'Test transaction from user.html'
+            };
+
+            let transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            transactions.push(transaction);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+
+            document.getElementById('status').innerHTML = '✅ Test transaction added to localStorage!<br>Transactions: ' + transactions.length;
+        }
+
+        function openAdmin() {
+            window.open('admin.html', '_blank');
+        }
+    </script>
+</body>
+</html>

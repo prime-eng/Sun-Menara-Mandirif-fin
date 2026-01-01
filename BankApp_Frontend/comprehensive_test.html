@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Connection Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        .log { background: #f8f8f8; padding: 10px; margin: 10px 0; font-family: monospace; white-space: pre-wrap; max-height: 200px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>Comprehensive Transaction Connection Test</h1>
+
+    <div class="test-section">
+        <h3>Step 1: Clear All Data</h3>
+        <button onclick="clearAllData()">Clear localStorage</button>
+        <div id="clearStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Step 2: Simulate User Transaction</h3>
+        <button onclick="simulateUserTransaction()">Add User Transaction</button>
+        <div id="userStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Step 3: Check Admin Dashboard</h3>
+        <button onclick="checkAdminData()">Check Admin Data</button>
+        <div id="adminStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Step 4: Open Admin Dashboard</h3>
+        <button onclick="openAdminDashboard()">Open Admin Dashboard</button>
+        <div id="openStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Debug Log</h3>
+        <div id="debugLog" class="log"></div>
+    </div>
+
+    <script>
+        function log(message) {
+            const logDiv = document.getElementById('debugLog');
+            logDiv.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearAllData() {
+            localStorage.clear();
+            log('Cleared all localStorage data');
+            document.getElementById('clearStatus').innerHTML = '<span class="success">✅ localStorage cleared</span>';
+        }
+
+        function simulateUserTransaction() {
+            try {
+                // Simulate the exact same transaction creation as user_app.js
+                const transaction = {
+                    timestamp: new Date().toISOString(),
+                    id: 'IDR' + Math.floor(Math.random() * 1000000),
+                    type: 'Transfer Rupiah',
+                    amount: 50000,
+                    currency: 'IDR',
+                    status: 'Berhasil',
+                    senderName: 'Test User',
+                    senderNumber: '1234567890',
+                    recipientName: 'Test Recipient',
+                    recipientNumber: '0987654321',
+                    notes: 'Test transaction from user.html'
+                };
+
+                // Get existing transactions
+                const existingData = localStorage.getItem('transactions');
+                log('Existing localStorage data: ' + existingData);
+
+                let transactions = [];
+                if (existingData) {
+                    transactions = JSON.parse(existingData);
+                    log('Parsed existing transactions: ' + transactions.length + ' items');
+                }
+
+                // Add new transaction
+                transactions.push(transaction);
+                log('Added transaction, total now: ' + transactions.length);
+
+                // Save back to localStorage
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                log('Saved to localStorage: ' + JSON.stringify(transactions, null, 2));
+
+                document.getElementById('userStatus').innerHTML = '<span class="success">✅ Transaction added: ' + transaction.id + '</span>';
+
+            } catch (error) {
+                log('Error in simulateUserTransaction: ' + error);
+                document.getElementById('userStatus').innerHTML = '<span class="error">❌ Error: ' + error.message + '</span>';
+            }
+        }
+
+        function checkAdminData() {
+            try {
+                const data = localStorage.getItem('transactions');
+                log('Admin checking localStorage: ' + data);
+
+                if (!data) {
+                    document.getElementById('adminStatus').innerHTML = '<span class="error">❌ No data in localStorage</span>';
+                    return;
+                }
+
+                const transactions = JSON.parse(data);
+                log('Admin parsed transactions: ' + transactions.length + ' items');
+
+                if (transactions.length === 0) {
+                    document.getElementById('adminStatus').innerHTML = '<span class="error">❌ No transactions found</span>';
+                    return;
+                }
+
+                const latestTx = transactions[transactions.length - 1];
+                document.getElementById('adminStatus').innerHTML = '<span class="success">✅ Found ' + transactions.length + ' transactions. Latest: ' + latestTx.id + ' - ' + latestTx.type + '</span>';
+
+            } catch (error) {
+                log('Error in checkAdminData: ' + error);
+                document.getElementById('adminStatus').innerHTML = '<span class="error">❌ Error: ' + error.message + '</span>';
+            }
+        }
+
+        function openAdminDashboard() {
+            window.open('admin.html', '_blank');
+            document.getElementById('openStatus').innerHTML = '<span class="success">✅ Admin dashboard opened in new tab</span>';
+        }
+
+        // Auto-check on load
+        window.addEventListener('load', () => {
+            log('Test page loaded');
+            checkAdminData();
+        });
+    </script>
+</body>
+</html>

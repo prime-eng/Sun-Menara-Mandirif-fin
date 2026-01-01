@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PT Sun Menara Mandiri Group - Holding Company Terpercaya</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0c0c0c, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+            color: white;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Liquid Background Animation */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .liquid-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(0, 123, 255, 0.1), rgba(138, 43, 226, 0.1));
+            animation: liquidFloat 20s ease-in-out infinite;
+        }
+
+        .liquid-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .liquid-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .liquid-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        .liquid-shape:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            right: 30%;
+            animation-delay: 15s;
+        }
+
+        @keyframes liquidFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                border-radius: 50%;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                border-radius: 30% 70% 70% 30%;
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+                border-radius: 70% 30% 30% 70%;
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+                border-radius: 30% 70% 30% 70%;
+            }
+        }
+
+        /* Glass Container */
+        .glass-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: glassMorph 8s ease-in-out infinite;
+            margin-bottom: 30px;
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 25px; }
+            25% { border-radius: 30px 20px 25px 30px; }
+            50% { border-radius: 20px 30px 30px 20px; }
+            75% { border-radius: 30px 25px 20px 30px; }
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: liquidShine 4s ease-in-out infinite;
+        }
+
+        @keyframes liquidShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Enhanced Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .navbar-brand img {
+            filter: brightness(0) invert(1);
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .btn-outline-light {
+            border-color: rgba(255, 255, 255, 0.5) !important;
+            color: white !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(255, 255, 255, 0.8) !important;
+            color: white !important;
+        }
+
+        .btn-warning {
+            background: linear-gradient(45deg, rgba(255, 193, 7, 0.8), rgba(255, 87, 34, 0.8)) !important;
+            border: none !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Jumbotron */
+        .jumbotron {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .jumbotron h1 {
+            color: white;
+            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .jumbotron p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn-lg {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light.btn-lg {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline-light.btn-lg:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-warning.btn-lg {
+            background: linear-gradient(45deg, rgba(255, 193, 7, 0.8), rgba(255, 87, 34, 0.8));
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-warning.btn-lg:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            color: white;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-card h4 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Property Cards */
+        .property-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            color: white;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .property-img {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 123, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .property-card h5 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .property-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Company Profile Card */
+        .company-profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            color: white;
+        }
+
+        .company-profile-card h3 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .company-profile-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* Employee Table Card */
+        .table-responsive .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            animation: glassMorph 8s ease-in-out infinite;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.3), rgba(138, 43, 226, 0.3)) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .table {
+            color: white;
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background: rgba(0, 123, 255, 0.2) !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            backdrop-filter: blur(5px);
+        }
+
+        .table tbody tr {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.01);
+        }
+
+        .table tbody td {
+            color: rgba(255, 255, 255, 0.9);
+            border-color: rgba(255, 255, 255, 0.1);
+            padding: 12px 15px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dashboard Styles */
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: liquidShine 3s ease-in-out infinite;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .metric-icon {
+            font-size: 2.5rem;
+            color: rgba(0, 123, 255, 0.8);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .metric-content h3 {
+            color: white;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .metric-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            height: 100%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .dashboard-card-title {
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dashboard-card-title i {
+            color: rgba(0, 123, 255, 0.8);
+            font-size: 1.3rem;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .quick-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .quick-action-btn:hover {
+            background: rgba(0, 123, 255, 0.2);
+            border-color: rgba(0, 123, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+        }
+
+        .quick-action-btn i {
+            font-size: 1.2rem;
+            color: rgba(0, 123, 255, 0.8);
+        }
+
+        .recent-updates {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .update-item {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid rgba(0, 123, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .update-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .update-date {
+            color: rgba(0, 123, 255, 0.8);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .update-content {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Enhanced Animations */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .metric-card:hover .metric-icon {
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        /* Responsive Dashboard */
+        @media (max-width: 768px) {
+            .metric-card {
+                padding: 20px 15px;
+            }
+
+            .metric-content h3 {
+                font-size: 2rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-card {
+                padding: 20px;
+            }
+
+            .dashboard-card-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .jumbotron h1 {
+                font-size: 2rem;
+            }
+
+            .jumbotron {
+                padding: 40px 20px;
+            }
+
+            .glass-container {
+                padding: 0 15px;
+            }
+
+            .glass-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="liquid-bg">
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary-bank sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="img/ptsun.png" alt="Logo Perusahaan" class="logo-top-bar me-2" style="height:32px;">
+                <span class="fw-bold">PT Sun Menara Mandiri Group</span>
+            </a>
+
+            <div class="d-flex gap-2">
+                <a href="about.html" class="btn btn-outline-light btn-sm">Tentang Kami</a>
+                <a href="group-structure.html" class="btn btn-outline-light btn-sm">Struktur Grup</a>
+                <a href="business-portfolio.html" class="btn btn-outline-light btn-sm">Portofolio</a>
+                <a href="team.html" class="btn btn-outline-light btn-sm">Tim Kami</a>
+                <a href="properties.html" class="btn btn-outline-light btn-sm">Properti</a>
+                <a href="login.html?role=user" class="btn btn-outline-light btn-sm">Login User</a>
+                <a href="login.html?role=admin" class="btn btn-warning btn-sm">Login Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+
+        <div class="jumbotron text-center">
+            <h1 style="--i: 0; animation: fadeInUp 1s ease-out 0.2s both;">PT Sun Menara Mandiri Group</h1>
+            <p class="lead" style="--i: 0; animation: fadeInUp 1s ease-out 0.4s both;">Holding company terkemuka yang mengintegrasikan solusi keuangan terpercaya dan pengembangan properti berkelanjutan melalui PT Sun Menara Mandiri dan anak perusahaan PT TIGA BINTANG MAHAWIRA.</p>
+
+            <div class="mt-4 d-flex justify-content-center gap-3" style="--i: 0; animation: fadeInUp 1s ease-out 0.6s both;">
+                <a href="group-structure.html" class="btn btn-outline-light btn-lg">Struktur Grup</a>
+                <a href="business-portfolio.html" class="btn btn-warning btn-lg">Portofolio Bisnis</a>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="dashboard-section mb-5">
+            <h2 class="text-center mb-4 text-primary-bank" style="--i: 1; animation: fadeInUp 1s ease-out 0.6s both;">Dashboard Performa Grup</h2>
+
+            <!-- Metrics Row -->
+            <div class="row mb-4">
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="metric-card" style="--i: 2;">
+                        <div class="metric-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 class="metric-number">6</h3>
+                            <p class="metric-label">Perusahaan Anak</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="metric-card" style="--i: 3;">
+                        <div class="metric-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 class="metric-number">25+</h3>
+                            <p class="metric-label">Proyek Properti</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="metric-card" style="--i: 4;">
+                        <div class="metric-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 class="metric-number">2M+</h3>
+                            <p class="metric-label">Nasabah Aktif</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="metric-card" style="--i: 5;">
+                        <div class="metric-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 class="metric-number">50+</h3>
+                            <p class="metric-label">Lokasi Cabang</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions & Recent Activity -->
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="dashboard-card" style="--i: 6;">
+                        <h4 class="dashboard-card-title">
+                            <i class="fas fa-bolt"></i> Akses Cepat
+                        </h4>
+                        <div class="quick-actions">
+                            <a href="login.html?role=user" class="quick-action-btn">
+                                <i class="fas fa-user"></i>
+                                <span>Login User</span>
+                            </a>
+                            <a href="login.html?role=admin" class="quick-action-btn">
+                                <i class="fas fa-cog"></i>
+                                <span>Login Admin</span>
+                            </a>
+                            <a href="properties.html" class="quick-action-btn">
+                                <i class="fas fa-search"></i>
+                                <span>Cari Properti</span>
+                            </a>
+                            <a href="team.html" class="quick-action-btn">
+                                <i class="fas fa-users-cog"></i>
+                                <span>Tim Kami</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="dashboard-card" style="--i: 7;">
+                        <h4 class="dashboard-card-title">
+                            <i class="fas fa-newspaper"></i> Update Terbaru
+                        </h4>
+                        <div class="recent-updates">
+                            <div class="update-item">
+                                <div class="update-date">15 Des 2024</div>
+                                <div class="update-content">Peluncuran platform perbankan digital terbaru</div>
+                            </div>
+                            <div class="update-item">
+                                <div class="update-date">10 Des 2024</div>
+                                <div class="update-content">Proyek properti baru di Jakarta Selatan</div>
+                            </div>
+                            <div class="update-item">
+                                <div class="update-date">05 Des 2024</div>
+                                <div class="update-content">Kerjasama strategis dengan PT TIGA BINTANG MAHAWIRA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-center mb-4 text-primary-bank" style="--i: 1; animation: fadeInUp 1s ease-out 0.6s both;">Layanan Keuangan</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card" style="--i: 2;">
+                    <h4>Transfer SWIFT/MT</h4>
+                    <p>Memproses transfer valuta asing dengan cepat dan aman melalui jaringan SWIFT global.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card" style="--i: 3;">
+                    <h4>e-Statement Digital</h4>
+                    <p>Akses dan unduh laporan rekening elektronik Anda kapan saja, di mana saja.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card" style="--i: 4;">
+                    <h4>Keamanan Multi-Faktor</h4>
+                    <p>Keamanan tingkat tinggi dengan otentikasi multi-faktor dan enkripsi data end-to-end.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-center mb-4 text-primary-bank mt-5" style="--i: 5; animation: fadeInUp 1s ease-out 1.2s both;">Pengembangan Properti</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="property-card" style="--i: 6;">
+                    <div class="property-img">
+                        <i class="fas fa-building fa-3x"></i>
+                    </div>
+                    <div class="p-3">
+                        <h5>Pusat Perbelanjaan</h5>
+                        <p>Kompleks perbelanjaan modern dengan tenant berkualitas dan fasilitas lengkap.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="property-card" style="--i: 7;">
+                    <div class="property-img">
+                        <i class="fas fa-home fa-3x"></i>
+                    </div>
+                    <div class="p-3">
+                        <h5>Perumahan Elite</h5>
+                        <p>Perumahan premium dengan desain modern dan lokasi strategis di pusat kota.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="property-card" style="--i: 8;">
+                    <div class="property-img">
+                        <i class="fas fa-city fa-3x"></i>
+                    </div>
+                    <div class="p-3">
+                        <h5>Gedung Perkantoran</h5>
+                        <p>Gedung perkantoran kelas A dengan fasilitas lengkap dan akses transportasi mudah.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-content mt-5 company-profile-card" style="--i: 9; animation: fadeInUp 1s ease-out 1.4s both;">
+            <h3 class="text-primary-bank">Tentang PT Sun Menara Mandiri</h3>
+            <p>Didirikan pada tahun 1998, PT Sun Menara Mandiri adalah perusahaan terkemuka yang bergerak di bidang keuangan dan properti. Melalui anak perusahaan Pt Sun Menara Mandiri, kami menyediakan layanan perbankan digital inovatif, sementara divisi properti kami fokus pada pengembangan proyek-proyek strategis yang memberikan nilai tambah bagi masyarakat dan investor.</p>
+            <p>Visi kami adalah menjadi pemimpin terdepan dalam solusi keuangan terintegrasi dan pengembangan properti berkelanjutan di Asia Tenggara.</p>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Page fade animation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.animation = 'fadeIn 0.8s ease-in-out forwards';
+        });
+
+        // Add fade effect to navigation links
+        document.querySelectorAll('a[href]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && !href.startsWith('#') && !href.startsWith('javascript:') && !href.includes('mailto:')) {
+                    e.preventDefault();
+                    document.body.style.animation = 'fadeIn 0.3s ease-in-out reverse';
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

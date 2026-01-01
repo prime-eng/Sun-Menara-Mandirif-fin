@@ -1,0 +1,1661 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Dashboard - PT Sun Menara Mandiri</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css"> 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --color-primary: #002b5c;
+            --color-secondary: #0056b3;
+            --color-accent: #00a8cc;
+            --color-light: #f8f9fa;
+            --color-dark: #212529;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-dark: #343a40;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --text-light: #ffffff;
+            --border-color: #dee2e6;
+            --shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-lg: 0 4px 6px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Liquid Background Animation */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .liquid-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-accent));
+            animation: liquidMove 20s infinite linear;
+            opacity: 0.1;
+        }
+
+        .liquid-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .liquid-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .liquid-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 10%;
+            left: 10%;
+            animation-delay: -10s;
+        }
+
+        .liquid-shape:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            bottom: -50px;
+            right: 20%;
+            animation-delay: -15s;
+        }
+
+        @keyframes liquidMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, -50px) rotate(90deg); }
+            50% { transform: translate(-50px, 100px) rotate(180deg); }
+            75% { transform: translate(-100px, -100px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            box-shadow: var(--shadow-lg);
+        }
+
+        .bg-primary-bank {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)) !important;
+        }
+
+        .logo-top-bar {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Sidebar */
+        .bg-light-grey {
+            background-color: #f8f9fa !important;
+        }
+
+        #sidebar {
+            background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+            border-right: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        #sidebar .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        #sidebar .nav-link:hover {
+            background-color: var(--color-light);
+            color: var(--color-primary);
+            transform: translateX(5px);
+        }
+
+        #sidebar .nav-link.active {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        /* Main Content */
+        .min-vh-100 {
+            min-height: 100vh;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Statistics Cards */
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Activity Icons */
+        .activity-icon {
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Buttons */
+        .btn-primary-bank {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary-bank:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            color: white;
+        }
+
+        .menu-button {
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .menu-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: currentColor;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px 20px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: var(--transition);
+            border-left: 4px solid;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-left-color: var(--success-color);
+        }
+
+        .notification.error {
+            border-left-color: var(--danger-color);
+        }
+
+        .notification.warning {
+            border-left-color: var(--warning-color);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Form Styles */
+        .form-control:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 0.2rem rgba(0, 43, 92, 0.25);
+        }
+
+        /* Table Styles */
+        .table {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .table thead th {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            border: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        /* Card Content */
+        .card-content {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .stat-card {
+                margin-bottom: 20px;
+            }
+
+            .dashboard-card {
+                margin-bottom: 20px;
+            }
+
+            #sidebar {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 280px;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+
+            #sidebar.d-block {
+                left: 0;
+            }
+
+            .navbar-toggler {
+                border: none;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="liquid-bg">
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary-bank sticky-top">
+        <div class="container-fluid">
+            
+            <button class="btn btn-outline-light d-md-none me-2" onclick="toggleSidebar()">
+                <i class="bi bi-list"></i> 
+            </button>
+            
+            <a class="navbar-brand d-flex align-items-center mx-auto" href="#">
+                <img src="img/ptsun.png" alt="Logo Perusahaan" class="logo-top-bar me-2" style="height: 30px;">
+                <span class="fw-bold">PT Sun Menara Mandiri</span>
+            </a>
+            
+            <div class="d-flex align-items-center flex-grow-1 justify-content-end">
+                <span class="navbar-text me-3 info-saldo d-none d-sm-block text-white">
+                    Selamat datang!
+                </span>
+                <button class="btn btn-outline-light btn-sm" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-none d-md-block pt-3 bg-light-grey min-vh-100">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link active" onclick="showContent('dashboard')"><i class="bi bi-house-door-fill me-2"></i> Dashboard</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link" onclick="showContent('transactionHistory')"><i class="bi bi-journal-text me-2"></i> Riwayat Transaksi</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link" onclick="showContent('transfer')"><i class="bi bi-arrow-left-right me-2"></i> Transfer Rupiah</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showContent('valas')"><i class="bi bi-currency-dollar me-2"></i> Valuta Asing</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showContent('account_info')"><i class="bi bi-person-lines-fill me-2"></i> Informasi Akun</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showContent('statement')"><i class="bi bi-file-earmark-bar-graph me-2"></i> e-Statement</a></li>
+                </ul>
+                <div class="mt-4 p-3 border-top">
+                    <small>Pastikan sesi Anda aman.</small>
+                </div>
+            </nav>
+
+            <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light-grey min-vh-100">
+                
+            <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light-grey min-vh-100">
+                
+                <div id="dashboard" class="section mt-4 fade-in">
+                    <!-- Welcome Section -->
+                    <div class="dashboard-card p-4 mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h2 class="mb-2">
+                                    <i class="bi bi-person-circle me-3 text-primary"></i>
+                                    Selamat Datang, <span id="userName">Pelanggan</span>
+                                </h2>
+                                <p class="text-muted mb-0">Berikut adalah ringkasan aktivitas dan saldo rekening Anda hari ini.</p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <i class="bi bi-calendar-event me-2 text-primary"></i>
+                                    <span id="currentDate" class="fw-bold"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-wallet2"></i>
+                                </div>
+                                <div class="stat-value" id="accountBalance">Rp 0</div>
+                                <div class="stat-label">Saldo Rekening</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-arrow-up-circle"></i>
+                                </div>
+                                <div class="stat-value" id="monthlyIncome">Rp 0</div>
+                                <div class="stat-label">Pemasukan Bulan Ini</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-arrow-down-circle"></i>
+                                </div>
+                                <div class="stat-value" id="monthlyExpense">Rp 0</div>
+                                <div class="stat-label">Pengeluaran Bulan Ini</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-activity"></i>
+                                </div>
+                                <div class="stat-value" id="totalTransactions">0</div>
+                                <div class="stat-label">Total Transaksi</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts and Recent Activity -->
+                    <div class="row mb-4">
+                        <div class="col-lg-8 mb-4">
+                            <div class="dashboard-card p-4">
+                                <h5 class="mb-3">
+                                    <i class="bi bi-graph-up me-2 text-primary"></i>
+                                    Tren Transaksi 6 Bulan Terakhir
+                                </h5>
+                                <div class="chart-container">
+                                    <canvas id="transactionChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-4">
+                            <div class="dashboard-card p-4">
+                                <h5 class="mb-3">
+                                    <i class="bi bi-clock-history me-2 text-primary"></i>
+                                    Aktivitas Terbaru
+                                </h5>
+                                <div id="recentActivity" class="list-group list-group-flush">
+                                    <div class="list-group-item px-0 py-3 border-0">
+                                        <div class="d-flex align-items-center">
+                                            <div class="activity-icon bg-success text-white rounded-circle me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                                <i class="bi bi-arrow-down-circle"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="fw-bold">Transfer Masuk</div>
+                                                <small class="text-muted">Dari: PT ABC Indonesia</small>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="fw-bold text-success">+Rp 5.000.000</div>
+                                                <small class="text-muted">2 jam lalu</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item px-0 py-3 border-0">
+                                        <div class="d-flex align-items-center">
+                                            <div class="activity-icon bg-danger text-white rounded-circle me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                                <i class="bi bi-arrow-up-circle"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="fw-bold">Transfer Keluar</div>
+                                                <small class="text-muted">Ke: Rekening PLN</small>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="fw-bold text-danger">-Rp 250.000</div>
+                                                <small class="text-muted">1 hari lalu</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item px-0 py-3 border-0">
+                                        <div class="d-flex align-items-center">
+                                            <div class="activity-icon bg-info text-white rounded-circle me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                                <i class="bi bi-currency-dollar"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="fw-bold">Konversi Valas</div>
+                                                <small class="text-muted">USD ke IDR</small>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="fw-bold text-info">$ 1.000</div>
+                                                <small class="text-muted">3 hari lalu</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="dashboard-card p-4">
+                        <h5 class="mb-3">
+                            <i class="bi bi-lightning me-2 text-primary"></i>
+                            Aksi Cepat
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-md-3 col-sm-6">
+                                <button class="btn btn-outline-primary w-100 p-3" onclick="showContent('transfer')">
+                                    <i class="bi bi-arrow-left-right fs-4 d-block mb-2"></i>
+                                    <span>Transfer</span>
+                                </button>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <button class="btn btn-outline-success w-100 p-3" onclick="showContent('valas')">
+                                    <i class="bi bi-currency-dollar fs-4 d-block mb-2"></i>
+                                    <span>Valas</span>
+                                </button>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <button class="btn btn-outline-info w-100 p-3" onclick="showContent('statement')">
+                                    <i class="bi bi-file-earmark-bar-graph fs-4 d-block mb-2"></i>
+                                    <span>e-Statement</span>
+                                </button>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <button class="btn btn-outline-warning w-100 p-3" onclick="showContent('account_info')">
+                                    <i class="bi bi-person-lines-fill fs-4 d-block mb-2"></i>
+                                    <span>Info Akun</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="transactionHistory" class="section hidden mt-4 card-content">
+                    <h2>Riwayat Transaksi</h2>
+                    <p class="text-muted">Daftar semua aktivitas transaksi terbaru Anda.</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Ref ID</th>
+                                    <th>Tipe</th>
+                                    <th>Nominal</th>
+                                    <th>Mata Uang</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTransactionLog">
+                                <tr><td colspan="6" class="text-center text-muted">Memuat riwayat...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="transfer" class="section hidden mt-4">
+                    <div class="dashboard-card p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <i class="bi bi-arrow-left-right fs-3 text-primary me-3"></i>
+                            <div>
+                                <h2 class="mb-1">Transfer Rupiah</h2>
+                                <p class="text-muted mb-0">Lakukan transfer dana Rupiah ke rekening lain dengan cepat dan aman.</p>
+                            </div>
+                        </div>
+                        
+                        <form id="rupiahTransferForm" onsubmit="handleTransferIDR(event)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="dashboard-card p-3 mb-3">
+                                        <h5 class="text-primary mb-3">
+                                            <i class="bi bi-person-fill me-2"></i>Data Pengirim
+                                        </h5>
+                                        <div class="mb-3">
+                                            <label for="senderNameIDR" class="form-label">Nama Pengirim</label>
+                                            <input type="text" class="form-control" id="senderNameIDR" value="USER TEST" required readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="senderNumberIDR" class="form-label">No. Rekening Pengirim</label>
+                                            <input type="text" class="form-control" id="senderNumberIDR" value="1234567890" required readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="dashboard-card p-3 mb-3">
+                                        <h5 class="text-primary mb-3">
+                                            <i class="bi bi-person-plus-fill me-2"></i>Data Penerima
+                                        </h5>
+                                        <div class="mb-3">
+                                            <label for="recipientNameIDR" class="form-label">Nama Penerima</label>
+                                            <input type="text" class="form-control" id="recipientNameIDR" required placeholder="Masukkan Nama Penerima">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipientNumberIDR" class="form-label">Nomor Rekening Tujuan</label>
+                                            <input type="text" class="form-control" id="recipientNumberIDR" required placeholder="Masukkan No. Rekening Tujuan">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="dashboard-card p-3 mb-3">
+                                <h5 class="text-primary mb-3">
+                                    <i class="bi bi-cash-coin me-2"></i>Rincian Transfer
+                                </h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="transferAmountIDR" class="form-label">Nominal Transfer (IDR)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">Rp</span>
+                                                <input type="number" class="form-control" id="transferAmountIDR" min="10000" required placeholder="Minimal Rp 10.000">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="transferNotesIDR" class="form-label">Catatan</label>
+                                            <input type="text" class="form-control" id="transferNotesIDR" maxlength="50" placeholder="Opsional - maksimal 50 karakter">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="rupiahTransferMessage" class="alert d-none"></div>
+                            
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary-bank btn-lg px-5">
+                                    <i class="bi bi-send me-2"></i>Proses Transfer Rupiah
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="transferConfirmArea" class="hidden"></div>
+                    <div id="transferResultArea" class="hidden"></div>
+                </div>
+                <div id="account_info" class="section hidden mt-4 card-content"><h2>Informasi Akun</h2><p>Detail lengkap mengenai akun Anda. (Dalam pengembangan)</p></div>
+                <div id="statement" class="section hidden mt-4">
+                    <div class="dashboard-card p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <i class="bi bi-file-earmark-bar-graph fs-3 text-info me-3"></i>
+                            <div>
+                                <h2 class="mb-1">e-Statement</h2>
+                                <p class="text-muted mb-0">Unduh laporan rekening digital dalam format PDF.</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="statementStartDate" class="form-label">Tanggal Mulai</label>
+                                    <input type="date" class="form-control" id="statementStartDate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="statementEndDate" class="form-label">Tanggal Akhir</label>
+                                    <input type="date" class="form-control" id="statementEndDate" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mb-4">
+                            <button class="btn btn-primary-bank btn-lg px-5" onclick="generateStatement()">
+                                <i class="bi bi-download me-2"></i>Generate & Download PDF
+                            </button>
+                        </div>
+
+                        <div id="statementPreview" class="mt-4" style="display: none;">
+                            <h5 class="mb-3">Pratinjau Statement</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Tanggal</th>
+                                            <th>Ref ID</th>
+                                            <th>Tipe</th>
+                                            <th>Nominal</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="statementPreviewBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="valas" class="section hidden mt-4">
+                    <div class="dashboard-card p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <i class="bi bi-currency-dollar fs-3 text-success me-3"></i>
+                            <div>
+                                <h2 class="mb-1">Valuta Asing (SWIFT MT)</h2>
+                                <p class="text-muted mb-0">Pilih jenis pesan SWIFT atau instruksi valuta asing yang ingin disimulasikan.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-4 col-sm-6">
+                                <button class="btn btn-outline-primary w-100 p-3 menu-button" onclick="showForm('mt103Form')">
+                                    <i class="bi bi-file-earmark-text fs-2 d-block mb-2"></i>
+                                    <span class="fw-bold">MT103</span>
+                                    <small class="d-block text-muted">Single Customer Credit Transfer</small>
+                                </button>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <button class="btn btn-outline-success w-100 p-3 menu-button" onclick="showForm('mt107Form')">
+                                    <i class="bi bi-graph-up fs-2 d-block mb-2"></i>
+                                    <span class="fw-bold">MT107</span>
+                                    <small class="d-block text-muted">General Direct Debit</small>
+                                </button>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <button class="btn btn-outline-info w-100 p-3 menu-button" onclick="showForm('mt760Form')">
+                                    <i class="bi bi-bank fs-2 d-block mb-2"></i>
+                                    <span class="fw-bold">MT760</span>
+                                    <small class="d-block text-muted">Guarantee</small>
+                                </button>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <button class="btn btn-outline-warning w-100 p-3 menu-button" onclick="showForm('mt799Form')">
+                                    <i class="bi bi-envelope fs-2 d-block mb-2"></i>
+                                    <span class="fw-bold">MT799</span>
+                                    <small class="d-block text-muted">Free Format Message</small>
+                                </button>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <button class="btn btn-outline-danger w-100 p-3 menu-button" onclick="showForm('cashForm')">
+                                    <i class="bi bi-cash-coin fs-2 d-block mb-2"></i>
+                                    <span class="fw-bold">Cash Transfer</span>
+                                    <small class="d-block text-muted">RTS Transfer</small>
+                                </button>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <button class="btn btn-outline-secondary w-100 p-3 menu-button" onclick="showForm('switchForm')">
+                                    <i class="bi bi-arrow-repeat fs-2 d-block mb-2"></i>
+                                    <span class="fw-bold">Switching Fund</span>
+                                    <small class="d-block text-muted">Valas Fund Transfer</small>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="forms" class="mt-4"></div>
+                    <div id="confirm" class="mt-4"></div>
+                    <div id="result" class="mt-4"></div>
+                </div>
+                </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Toggle Sidebar (untuk layar kecil)
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('d-none');
+            sidebar.classList.toggle('d-block');
+        }
+
+        // Enhanced Show Content with Animation
+        function showContent(id) {
+            // Hide all sections with fade out
+            document.querySelectorAll('.section').forEach(s => {
+                s.classList.add('hidden');
+                s.classList.remove('fade-in', 'slide-up');
+            });
+
+            // Show selected section with animation
+            setTimeout(() => {
+                const targetSection = document.getElementById(id);
+                targetSection.classList.remove('hidden');
+                targetSection.classList.add('fade-in', 'slide-up');
+            }, 150);
+
+            // Update sidebar active state
+            document.querySelectorAll('#sidebar .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeLink = document.querySelector(`#sidebar a[onclick="showContent('${id}')"]`);
+            if(activeLink) activeLink.classList.add('active');
+
+            // Load specific content
+            if (id === 'transactionHistory' && typeof renderUserHistory !== 'undefined') {
+                renderUserHistory();
+            }
+
+            // Initialize charts when dashboard is shown
+            if (id === 'dashboard') {
+                initializeDashboard();
+            }
+        }
+        
+        // Initialize Dashboard Data
+        function initializeDashboard() {
+            // Set current date
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('id-ID', options);
+
+            // Simulate loading account data
+            setTimeout(() => {
+                document.getElementById('accountBalance').textContent = 'Rp 25.750.000';
+                document.getElementById('monthlyIncome').textContent = 'Rp 15.000.000';
+                document.getElementById('monthlyExpense').textContent = 'Rp 8.250.000';
+                document.getElementById('totalTransactions').textContent = '47';
+
+                // Initialize chart
+                initializeChart();
+            }, 500);
+        }
+
+        // Initialize Chart
+        function initializeChart() {
+            const ctx = document.getElementById('transactionChart').getContext('2d');
+            
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(0, 43, 92, 0.3)');
+            gradient.addColorStop(1, 'rgba(0, 43, 92, 0.05)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+                    datasets: [{
+                        label: 'Transaksi Bulanan',
+                        data: [12, 19, 15, 25, 22, 30],
+                        borderColor: 'var(--color-primary)',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: 'var(--color-primary)',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        }
+
+        // Enhanced Notification System
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="bi bi-${type === 'success' ? 'check-circle' : type === 'error' ? 'x-circle' : 'exclamation-triangle'} me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Enhanced Transfer Function with Loading State
+        function handleTransferIDR(event) {
+            event.preventDefault();
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<span class="loading-spinner me-2"></span>Memproses...';
+            submitBtn.disabled = true;
+            
+            // Simulate processing
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                showNotification('Transfer berhasil diproses!', 'success');
+                
+                // Reset form
+                event.target.reset();
+            }, 2000);
+        }
+
+        // Logout with confirmation
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userRole');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ===================================================
+        // VALAS FORM HANDLING FUNCTIONS
+        // ===================================================
+
+        function showForm(formType) {
+            const formsContainer = document.getElementById('forms');
+            const confirmContainer = document.getElementById('confirm');
+            const resultContainer = document.getElementById('result');
+
+            // Hide other containers
+            confirmContainer.innerHTML = '';
+            resultContainer.innerHTML = '';
+
+            let formHTML = '';
+
+            switch(formType) {
+                case 'mt103Form':
+                    formHTML = `
+                        <div class="dashboard-card p-4">
+                            <h4 class="text-primary mb-4">
+                                <i class="bi bi-file-earmark-text me-2"></i>MT103 - Single Customer Credit Transfer
+                            </h4>
+                            <form id="mt103Form" onsubmit="submitMT103(event)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Sender Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Sender Name</label>
+                                            <input type="text" class="form-control" id="mt103Sender" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Sender Account</label>
+                                            <input type="text" class="form-control" id="mt103SenderAcc" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Receiver Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Receiver Name</label>
+                                            <input type="text" class="form-control" id="mt103Receiver" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Receiver Account</label>
+                                            <input type="text" class="form-control" id="mt103ReceiverAcc" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Amount</label>
+                                            <input type="number" class="form-control" id="mt103Amount" min="0.01" step="0.01" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency</label>
+                                            <select class="form-control" id="mt103Currency" required>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="GBP">GBP</option>
+                                                <option value="JPY">JPY</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Instructions</label>
+                                    <textarea class="form-control" id="mt103Instr" rows="3" placeholder="Payment instructions..."></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary-bank btn-lg px-5">
+                                        <i class="bi bi-send me-2"></i>Submit MT103
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    `;
+                    break;
+
+                case 'mt107Form':
+                    formHTML = `
+                        <div class="dashboard-card p-4">
+                            <h4 class="text-primary mb-4">
+                                <i class="bi bi-graph-up me-2"></i>MT107 - General Direct Debit
+                            </h4>
+                            <form id="mt107Form" onsubmit="submitMT107(event)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Debtor Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Debtor Name</label>
+                                            <input type="text" class="form-control" id="mt107Debtor" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Debtor Account</label>
+                                            <input type="text" class="form-control" id="mt107DebtorAcc" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Creditor Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Creditor Name</label>
+                                            <input type="text" class="form-control" id="mt107Creditor" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Creditor Account</label>
+                                            <input type="text" class="form-control" id="mt107CreditorAcc" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Amount</label>
+                                            <input type="number" class="form-control" id="mt107Amount" min="0.01" step="0.01" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency</label>
+                                            <select class="form-control" id="mt107Currency" required>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="GBP">GBP</option>
+                                                <option value="JPY">JPY</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Purpose</label>
+                                    <textarea class="form-control" id="mt107Purpose" rows="3" placeholder="Payment purpose..."></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success btn-lg px-5">
+                                        <i class="bi bi-send me-2"></i>Submit MT107
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    `;
+                    break;
+
+                case 'mt760Form':
+                    formHTML = `
+                        <div class="dashboard-card p-4">
+                            <h4 class="text-primary mb-4">
+                                <i class="bi bi-bank me-2"></i>MT760 - Guarantee
+                            </h4>
+                            <form id="mt760Form" onsubmit="submitMT760(event)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Applicant Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Applicant Name</label>
+                                            <input type="text" class="form-control" id="mt760Applicant" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Applicant Account</label>
+                                            <input type="text" class="form-control" id="mt760ApplicantAcc" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Beneficiary Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Beneficiary Name</label>
+                                            <input type="text" class="form-control" id="mt760Beneficiary" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Beneficiary Account</label>
+                                            <input type="text" class="form-control" id="mt760BeneficiaryAcc" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Guarantee Amount</label>
+                                            <input type="number" class="form-control" id="mt760Amount" min="0.01" step="0.01" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency</label>
+                                            <select class="form-control" id="mt760Currency" required>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="GBP">GBP</option>
+                                                <option value="JPY">JPY</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Guarantee Details</label>
+                                    <textarea class="form-control" id="mt760Details" rows="3" placeholder="Guarantee terms and conditions..."></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-info btn-lg px-5">
+                                        <i class="bi bi-send me-2"></i>Submit MT760
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    `;
+                    break;
+
+                case 'mt799Form':
+                    formHTML = `
+                        <div class="dashboard-card p-4">
+                            <h4 class="text-primary mb-4">
+                                <i class="bi bi-envelope me-2"></i>MT799 - Free Format Message
+                            </h4>
+                            <form id="mt799Form" onsubmit="submitMT799(event)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Sender Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Sender Name</label>
+                                            <input type="text" class="form-control" id="mt799Sender" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Sender Account</label>
+                                            <input type="text" class="form-control" id="mt799SenderAcc" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Receiver Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Receiver Name</label>
+                                            <input type="text" class="form-control" id="mt799Receiver" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Receiver Account</label>
+                                            <input type="text" class="form-control" id="mt799ReceiverAcc" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Message Content</label>
+                                    <textarea class="form-control" id="mt799Message" rows="5" placeholder="Free format message content..." required></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-warning btn-lg px-5">
+                                        <i class="bi bi-send me-2"></i>Submit MT799
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    `;
+                    break;
+
+                case 'cashForm':
+                    formHTML = `
+                        <div class="dashboard-card p-4">
+                            <h4 class="text-primary mb-4">
+                                <i class="bi bi-cash-coin me-2"></i>Cash Transfer (RTS)
+                            </h4>
+                            <form id="cashForm" onsubmit="submitCash(event)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Sender Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Sender Name</label>
+                                            <input type="text" class="form-control" id="cashSender" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Sender Account</label>
+                                            <input type="text" class="form-control" id="cashSenderAcc" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">Receiver Information</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Receiver Name</label>
+                                            <input type="text" class="form-control" id="cashReceiver" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Receiver Account</label>
+                                            <input type="text" class="form-control" id="cashReceiverAcc" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Amount</label>
+                                            <input type="number" class="form-control" id="cashAmount" min="0.01" step="0.01" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency</label>
+                                            <select class="form-control" id="cashCurrency" required>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="GBP">GBP</option>
+                                                <option value="JPY">JPY</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Transfer Notes</label>
+                                    <textarea class="form-control" id="cashNotes" rows="3" placeholder="Transfer notes..."></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-danger btn-lg px-5">
+                                        <i class="bi bi-send me-2"></i>Submit Cash Transfer
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    `;
+                    break;
+
+                case 'switchForm':
+                    formHTML = `
+                        <div class="dashboard-card p-4">
+                            <h4 class="text-primary mb-4">
+                                <i class="bi bi-arrow-repeat me-2"></i>Switching Fund (Valas Transfer)
+                            </h4>
+                            <form id="switchForm" onsubmit="submitSwitch(event)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">From Account</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Holder</label>
+                                            <input type="text" class="form-control" id="switchFromHolder" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Number</label>
+                                            <input type="text" class="form-control" id="switchFromAcc" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency</label>
+                                            <select class="form-control" id="switchFromCurr" required>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="GBP">GBP</option>
+                                                <option value="JPY">JPY</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="text-primary mb-3">To Account</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Holder</label>
+                                            <input type="text" class="form-control" id="switchToHolder" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Number</label>
+                                            <input type="text" class="form-control" id="switchToAcc" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency</label>
+                                            <select class="form-control" id="switchToCurr" required>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="GBP">GBP</option>
+                                                <option value="JPY">JPY</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Transfer Amount</label>
+                                    <input type="number" class="form-control" id="switchAmount" min="0.01" step="0.01" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Exchange Rate (if applicable)</label>
+                                    <input type="number" class="form-control" id="switchRate" min="0.01" step="0.0001" placeholder="Optional">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Transfer Purpose</label>
+                                    <textarea class="form-control" id="switchPurpose" rows="3" placeholder="Fund switching purpose..."></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-secondary btn-lg px-5">
+                                        <i class="bi bi-send me-2"></i>Submit Fund Switch
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    `;
+                    break;
+            }
+
+            formsContainer.innerHTML = formHTML;
+        }
+
+        // ===================================================
+        // FORM SUBMISSION FUNCTIONS
+        // ===================================================
+
+        function submitMT103(event) {
+            event.preventDefault();
+
+            const data = {
+                sender: document.getElementById('mt103Sender').value,
+                senderAcc: document.getElementById('mt103SenderAcc').value,
+                receiver: document.getElementById('mt103Receiver').value,
+                receiverAcc: document.getElementById('mt103ReceiverAcc').value,
+                amt: document.getElementById('mt103Amount').value,
+                curr: document.getElementById('mt103Currency').value,
+                instr: document.getElementById('mt103Instr').value
+            };
+
+            sessionStorage.setItem('valasData', JSON.stringify(data));
+            confirmValas('MT103');
+        }
+
+        function submitMT107(event) {
+            event.preventDefault();
+
+            const data = {
+                sender: document.getElementById('mt107Debtor').value,
+                senderAcc: document.getElementById('mt107DebtorAcc').value,
+                receiver: document.getElementById('mt107Creditor').value,
+                receiverAcc: document.getElementById('mt107CreditorAcc').value,
+                amt: document.getElementById('mt107Amount').value,
+                curr: document.getElementById('mt107Currency').value,
+                note: document.getElementById('mt107Purpose').value
+            };
+
+            sessionStorage.setItem('valasData', JSON.stringify(data));
+            confirmValas('MT107');
+        }
+
+        function submitMT760(event) {
+            event.preventDefault();
+
+            const data = {
+                sender: document.getElementById('mt760Applicant').value,
+                senderAcc: document.getElementById('mt760ApplicantAcc').value,
+                receiver: document.getElementById('mt760Beneficiary').value,
+                receiverAcc: document.getElementById('mt760BeneficiaryAcc').value,
+                amt: document.getElementById('mt760Amount').value,
+                curr: document.getElementById('mt760Currency').value,
+                note: document.getElementById('mt760Details').value
+            };
+
+            sessionStorage.setItem('valasData', JSON.stringify(data));
+            confirmValas('MT760');
+        }
+
+        function submitMT799(event) {
+            event.preventDefault();
+
+            const data = {
+                sender: document.getElementById('mt799Sender').value,
+                senderAcc: document.getElementById('mt799SenderAcc').value,
+                receiver: document.getElementById('mt799Receiver').value,
+                receiverAcc: document.getElementById('mt799ReceiverAcc').value,
+                amt: '0', // Free format message, no amount
+                curr: 'USD',
+                note: document.getElementById('mt799Message').value
+            };
+
+            sessionStorage.setItem('valasData', JSON.stringify(data));
+            confirmValas('MT799');
+        }
+
+        function submitCash(event) {
+            event.preventDefault();
+
+            const data = {
+                sender: document.getElementById('cashSender').value,
+                senderAcc: document.getElementById('cashSenderAcc').value,
+                receiver: document.getElementById('cashReceiver').value,
+                receiverAcc: document.getElementById('cashReceiverAcc').value,
+                amt: document.getElementById('cashAmount').value,
+                curr: document.getElementById('cashCurrency').value,
+                note: document.getElementById('cashNotes').value
+            };
+
+            sessionStorage.setItem('valasData', JSON.stringify(data));
+            confirmValas('Cash Transfer');
+        }
+
+        function submitSwitch(event) {
+            event.preventDefault();
+
+            const data = {
+                sender: document.getElementById('switchFromHolder').value,
+                senderAcc: document.getElementById('switchFromAcc').value,
+                receiver: document.getElementById('switchToHolder').value,
+                receiverAcc: document.getElementById('switchToAcc').value,
+                amt: document.getElementById('switchAmount').value,
+                curr: document.getElementById('switchToCurr').value,
+                note: `Fund switch from ${document.getElementById('switchFromCurr').value} to ${document.getElementById('switchToCurr').value}. Purpose: ${document.getElementById('switchPurpose').value}`
+            };
+
+            sessionStorage.setItem('valasData', JSON.stringify(data));
+            confirmValas('Switching Fund');
+        }
+
+        // ===================================================
+        // CONFIRMATION AND NAVIGATION
+        // ===================================================
+
+        function confirmValas(type) {
+            const data = JSON.parse(sessionStorage.getItem('valasData'));
+            if (!data) return alert("Data hilang.");
+
+            const confirmContainer = document.getElementById('confirm');
+            const formsContainer = document.getElementById('forms');
+            const resultContainer = document.getElementById('result');
+
+            formsContainer.innerHTML = '';
+            resultContainer.innerHTML = '';
+
+            confirmContainer.innerHTML = `
+                <div class="dashboard-card p-4">
+                    <h4 class="text-warning mb-4">Konfirmasi Transaksi ${type}</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Pengirim:</h5>
+                            <p><strong>${data.sender}</strong></p>
+                            <p>Akun: ${data.senderAcc}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Penerima:</h5>
+                            <p><strong>${data.receiver}</strong></p>
+                            <p>Akun: ${data.receiverAcc}</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h5>Jumlah:</h5>
+                            <p class="fw-bold text-success">${data.curr} ${Number(data.amt).toLocaleString()}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Tipe:</h5>
+                            <p>${type}</p>
+                        </div>
+                    </div>
+                    ${data.note ? `<div class="mt-3"><h5>Catatan:</h5><p>${data.note}</p></div>` : ''}
+                    <div class="text-center mt-4">
+                        <button class="btn btn-success btn-lg me-3" onclick="resultValas('${type}')">
+                            <i class="bi bi-check-circle me-2"></i>Konfirmasi
+                        </button>
+                        <button class="btn btn-secondary btn-lg" onclick="backToValas()">
+                            <i class="bi bi-arrow-left me-2"></i>Batal
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function backToValas() {
+            document.getElementById('forms').innerHTML = '';
+            document.getElementById('confirm').innerHTML = '';
+            document.getElementById('result').innerHTML = '';
+
+            // Show the main valas menu again
+            showContent('valas');
+        }
+
+        // ===================================================
+        // VALAS / SWIFT – FIXED
+        // ===================================================
+
+        function resultValas(id) {
+            const data = JSON.parse(sessionStorage.getItem('valasData'));
+            if (!data) return alert("Data hilang.");
+
+            const ref = 'REF' + Math.floor(Math.random() * 1000000);
+            const amount = Number(data.amt);
+            const currency = data.curr || 'USD';
+
+            const tx = {
+                timestamp: new Date().toISOString(),
+                id: ref,
+                type: id.replace('Form', '').toUpperCase(),
+                amount: amount,
+                currency: currency,
+                status: 'Berhasil',
+                senderName: data.sender || 'N/A',
+                senderNumber: data.senderAcc || 'N/A',
+                recipientName: data.receiver || 'N/A',
+                recipientNumber: data.receiverAcc || 'N/A',
+                notes: data.note || data.charge || data.instr || 'SWIFT'
+            };
+
+            const transactions = getTransactions();
+            transactions.push(tx);
+            saveTransactions(transactions);
+
+            document.getElementById("result").innerHTML = `
+                <div class="card-content mt-3">
+                    <h3>Transaksi Valas Berhasil</h3>
+                    <p>Ref ID: <b>${ref}</b></p>
+                    <button class="btn btn-secondary" onclick="backToValas()">Selesai</button>
+                </div>
+            `;
+
+            sessionStorage.removeItem('valasData');
+            renderUserHistory();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showContent('dashboard');
+            
+            // Add loading animation to page
+            document.body.classList.add('fade-in');
+        });
+    </script>
+    
+    <script src="js/user_app.js"></script>
+</body>
+</html>

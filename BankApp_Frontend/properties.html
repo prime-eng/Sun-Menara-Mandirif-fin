@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properti - PT Sun Menara Mandiri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0c0c0c, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Liquid Background Animation */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .liquid-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(0, 123, 255, 0.1), rgba(138, 43, 226, 0.1));
+            animation: liquidFloat 20s ease-in-out infinite;
+        }
+
+        .liquid-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .liquid-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .liquid-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        .liquid-shape:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            right: 30%;
+            animation-delay: 15s;
+        }
+
+        @keyframes liquidFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                border-radius: 50%;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                border-radius: 30% 70% 70% 30%;
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+                border-radius: 70% 30% 30% 70%;
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+                border-radius: 30% 70% 30% 70%;
+            }
+        }
+
+        /* Glass Container */
+        .glass-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 0;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: glassMorph 8s ease-in-out infinite;
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 25px; }
+            25% { border-radius: 30px 20px 25px 30px; }
+            50% { border-radius: 20px 30px 30px 20px; }
+            75% { border-radius: 30px 25px 20px 30px; }
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: liquidShine 4s ease-in-out infinite;
+        }
+
+        @keyframes liquidShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Header Section */
+        .glass-header {
+            background: linear-gradient(135deg,
+                rgba(40, 167, 69, 0.3),
+                rgba(34, 197, 94, 0.3),
+                rgba(74, 222, 128, 0.3));
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('img/ptsun.png');
+            background-size: 80px;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.1;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        .logo-glass {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-glass img {
+            width: 55px;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .glass-header h1 {
+            color: white;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .glass-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin: 8px 0 0;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Body Section */
+        .glass-body {
+            padding: 40px 30px;
+        }
+
+        /* Property Cards */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .property-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .property-img {
+            height: 200px;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.2), rgba(138, 43, 226, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 3rem;
+        }
+
+        .property-body {
+            padding: 25px;
+        }
+
+        .property-title {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .property-text {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .property-details {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .property-details li {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .property-details i {
+            color: rgba(40, 167, 69, 0.8);
+            margin-right: 10px;
+            width: 16px;
+        }
+
+        /* Features Section */
+        .features-section {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .features-title {
+            color: white;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: rgba(40, 167, 69, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-text {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-brand img {
+            height: 32px;
+            margin-right: 10px;
+            filter: brightness(0) invert(1);
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            text-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glass-container {
+                padding: 0 15px;
+            }
+
+            .glass-header,
+            .glass-body {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .glass-header h1 {
+                font-size: 2rem;
+            }
+
+            .property-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="liquid-bg">
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+        <div class="liquid-shape"></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="glass-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a class="nav-brand" href="index.html">
+                    <img src="img/ptsun.png" alt="PT Sun Menara Mandiri">
+                    <span>PT Sun Menara Mandiri</span>
+                </a>
+                <div class="nav-links">
+                    <a class="nav-link" href="index.html">Beranda</a>
+                    <a class="nav-link" href="about.html">Tentang Kami</a>
+                    <a class="nav-link" href="team.html">Tim Kami</a>
+                    <a class="nav-link active" href="properties.html">Properti</a>
+                    <a class="nav-link" href="login.html?role=user">Login User</a>
+                    <a class="nav-link" href="login.html?role=admin">Login Admin</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="glass-container">
+        <div class="glass-card">
+            <div class="glass-header">
+                <div class="logo-container">
+                    <div class="logo-glass">
+                        <img src="img/ptsun.png" alt="PT Sun Menara Mandiri">
+                    </div>
+                </div>
+                <h1>Portofolio Properti</h1>
+                <p>Koleksi proyek pengembangan properti berkualitas dari PT Sun Menara Mandiri</p>
+            </div>
+
+            <div class="glass-body">
+                <div class="property-grid">
+                    <div class="property-card">
+                        <div class="property-img">
+                            <i class="bi bi-bag"></i>
+                        </div>
+                        <div class="property-body">
+                            <h3 class="property-title">Sun Plaza Mall</h3>
+                            <p class="property-text">Pusat perbelanjaan modern seluas 50.000 m² dengan lebih dari 200 tenant retail dan food court yang lengkap.</p>
+                            <ul class="property-details">
+                                <li><i class="bi bi-geo-alt"></i>Jakarta Pusat</li>
+                                <li><i class="bi bi-calendar"></i>Dibangun 2015</li>
+                                <li><i class="bi bi-people"></i>500+ Tenant</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-img">
+                            <i class="bi bi-house"></i>
+                        </div>
+                        <div class="property-body">
+                            <h3 class="property-title">Sun Garden Residence</h3>
+                            <p class="property-text">Perumahan premium dengan 500 unit rumah tipe 36-150 m², dilengkapi fasilitas club house dan kolam renang.</p>
+                            <ul class="property-details">
+                                <li><i class="bi bi-geo-alt"></i>Bekasi</li>
+                                <li><i class="bi bi-calendar"></i>Dibangun 2018</li>
+                                <li><i class="bi bi-house-door"></i>500 Unit</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-img">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div class="property-body">
+                            <h3 class="property-title">Sun Tower Office</h3>
+                            <p class="property-text">Gedung perkantoran 25 lantai dengan sertifikasi green building, dilengkapi sistem HVAC modern dan parking basement.</p>
+                            <ul class="property-details">
+                                <li><i class="bi bi-geo-alt"></i>Jakarta Selatan</li>
+                                <li><i class="bi bi-calendar"></i>Dibangun 2020</li>
+                                <li><i class="bi bi-building"></i>25 Lantai</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-img">
+                            <i class="bi bi-shop"></i>
+                        </div>
+                        <div class="property-body">
+                            <h3 class="property-title">Sun Business Park</h3>
+                            <p class="property-text">Kawasan bisnis terpadu seluas 10 hektar dengan ruko, showroom, dan gedung perkantoran untuk mendukung UMKM.</p>
+                            <ul class="property-details">
+                                <li><i class="bi bi-geo-alt"></i>Tangerang</li>
+                                <li><i class="bi bi-calendar"></i>Dibangun 2022</li>
+                                <li><i class="bi bi-shop"></i>200+ Unit</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-img">
+                            <i class="bi bi-building-check"></i>
+                        </div>
+                        <div class="property-body">
+                            <h3 class="property-title">Sun Hotel & Convention</h3>
+                            <p class="property-text">Hotel bintang 4 dengan 200 kamar dan convention center berkapasitas 1.000 orang untuk acara bisnis dan MICE.</p>
+                            <ul class="property-details">
+                                <li><i class="bi bi-geo-alt"></i>Bandung</li>
+                                <li><i class="bi bi-calendar"></i>Dibangun 2023</li>
+                                <li><i class="bi bi-house-door"></i>200 Kamar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-img">
+                            <i class="bi bi-tree"></i>
+                        </div>
+                        <div class="property-body">
+                            <h3 class="property-title">Sun Central Park</h3>
+                            <p class="property-text">Pengembangan kawasan mixed-use dengan apartemen, retail, dan area hijau seluas 5 hektar di pusat kota.</p>
+                            <ul class="property-details">
+                                <li><i class="bi bi-geo-alt"></i>Surabaya</li>
+                                <li><i class="bi bi-calendar"></i>Dalam Pengembangan</li>
+                                <li><i class="bi bi-tree"></i>5 Hektar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">Mengapa Memilih Properti Kami?</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <h3 class="feature-title">Legalitas Jelas</h3>
+                            <p class="feature-text">Semua proyek memiliki izin lengkap dan sertifikat hak milik yang sah.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="bi bi-tools"></i>
+                            </div>
+                            <h3 class="feature-title">Kualitas Terjamin</h3>
+                            <p class="feature-text">Menggunakan material berkualitas tinggi dan standar konstruksi internasional.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="bi bi-geo-alt"></i>
+                            </div>
+                            <h3 class="feature-title">Lokasi Strategis</h3>
+                            <p class="feature-text">Berada di lokasi prime dengan akses transportasi yang mudah dan fasilitas lengkap.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Page fade animation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.animation = 'fadeIn 0.8s ease-in-out forwards';
+        });
+
+        // Add fade effect to navigation links
+        document.querySelectorAll('a[href]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && !href.startsWith('#') && !href.startsWith('javascript:') && !href.includes('mailto:')) {
+                    e.preventDefault();
+                    document.body.style.animation = 'fadeIn 0.3s ease-in-out reverse';
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
